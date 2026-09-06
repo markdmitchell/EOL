@@ -1,6 +1,6 @@
 """
 Database Seeding Script:
-Registers all 24 software EOL data sources, ingests official vendor lifecycle catalogs,
+Registers all 34 software EOL data sources, ingests official vendor lifecycle catalogs,
 syncs popular software products from endoflife.date API, and imports enterprise runtime inventory CSV.
 """
 
@@ -16,7 +16,7 @@ def seed():
     print("=== Initializing EOL/EOS Database ===")
     db = Database()
 
-    print("=== Registering 24 Software EOL Data Sources ===")
+    print("=== Registering 34 Software EOL Data Sources ===")
     ms_svc = MultiSourceService(db=db)
     sources_count = ms_svc.register_all_sources()
     print(f"Registered {sources_count} software EOL data sources into database.")

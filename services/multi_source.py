@@ -14,7 +14,7 @@ class MultiSourceService:
 
     def register_all_sources(self) -> int:
         """
-        Loads all 24 data sources from data/sources_list.json and registers them into data_sources table.
+        Loads all registered data sources from data/sources_list.json and registers them into data_sources table.
         """
         json_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "sources_list.json")
         if not os.path.exists(json_path):

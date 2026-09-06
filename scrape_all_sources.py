@@ -118,7 +118,7 @@ def run_full_scrape():
     csv_imp = CSVImporter(db=db)
 
     # 1. Register Data Sources
-    logger.info("Step 1/5: Registering all 24 software EOL data sources...")
+    logger.info("Step 1/5: Registering all software EOL data sources...")
     num_sources = ms_svc.register_all_sources()
     logger.info(f"Registered {num_sources} data sources into database.")
 

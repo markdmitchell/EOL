@@ -39,7 +39,7 @@ nav_choice = st.sidebar.radio(
     [
         "🔍 Searchable Product Catalog",
         "🛡️ Runtime Environment Risk Dashboard",
-        "📚 24 Data Sources Registry",
+        "📚 Integrated Data Sources Registry",
         "📜 Data Provenance & Audit Inspector",
         "⚙️ Data Ingestion & Management"
     ]
@@ -196,13 +196,13 @@ elif nav_choice == "🛡️ Runtime Environment Risk Dashboard":
 
 
 # ==========================================
-# TAB 3: 24 Data Sources Registry
+# TAB 3: Integrated Data Sources Registry
 # ==========================================
-elif nav_choice == "📚 24 Data Sources Registry":
-    st.title("📚 Software EOL Data Sources Registry (24 Integrated Feeds)")
+elif nav_choice == "📚 Integrated Data Sources Registry":
+    sources = db.get_all_data_sources()
+    st.title(f"📚 Software EOL Data Sources Registry ({len(sources)} Integrated Feeds)")
     st.markdown("Comprehensive directory of all primary APIs, vendor portals, standards (TEA / ECMA-428 CLE), and aggregators powering the database.")
 
-    sources = db.get_all_data_sources()
     st.write(f"Total Registered Sources: **{len(sources)}**")
 
     # Filters
