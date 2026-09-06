@@ -500,6 +500,101 @@ class EnterpriseVendorService:
                     {"cycle": "1.16", "release_date": "2024-03-19", "eoas_date": "2026-03-19", "eol_date": "2026-03-19", "is_lts": True, "is_eol": False},
                     {"cycle": "1.15", "release_date": "2023-10-03", "eoas_date": "2025-10-03", "eol_date": "2025-10-03", "is_lts": True, "is_eol": False}
                 ]
+            },
+
+            # ==========================================
+            # PALO ALTO, CHECK POINT & F5 NETWORK SECURITY
+            # ==========================================
+            {
+                "slug": "palo-alto-pan-os",
+                "name": "Palo Alto Networks PAN-OS",
+                "label": "Palo Alto Networks PAN-OS Security OS",
+                "category": "os",
+                "vendor": "Palo Alto Networks",
+                "tags": ["paloalto", "pan-os", "firewall", "security", "network"],
+                "source_name": "Flexera Technopedia Catalog",
+                "source_url": "https://www.paloaltonetworks.com/services/support/end-of-life-summary/end-of-life-pan-os",
+                "cycles": [
+                    {"cycle": "11.1", "release_date": "2023-11-15", "eoas_date": "2026-11-15", "eol_date": "2027-11-15", "is_lts": True, "is_eol": False},
+                    {"cycle": "10.2", "release_date": "2022-03-16", "eoas_date": "2025-03-16", "eol_date": "2026-03-16", "is_lts": True, "is_eol": False},
+                    {"cycle": "10.1", "release_date": "2021-06-09", "eoas_date": "2024-06-09", "eol_date": "2024-12-09", "is_lts": True, "is_eol": True}
+                ]
+            },
+            {
+                "slug": "check-point-gaia",
+                "name": "Check Point Gaia OS",
+                "label": "Check Point Gaia Security OS",
+                "category": "os",
+                "vendor": "Check Point Software",
+                "tags": ["checkpoint", "gaia", "firewall", "security"],
+                "source_name": "Flexera Technopedia Catalog",
+                "source_url": "https://www.checkpoint.com/support-services/support-life-cycle-policy/",
+                "cycles": [
+                    {"cycle": "R81.20", "release_date": "2022-11-14", "eoas_date": "2025-11-30", "eol_date": "2027-11-30", "is_lts": True, "is_eol": False},
+                    {"cycle": "R81.10", "release_date": "2021-07-12", "eoas_date": "2024-07-31", "eol_date": "2025-07-31", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "f5-big-ip",
+                "name": "F5 BIG-IP TMOS",
+                "label": "F5 BIG-IP Local Traffic Manager (TMOS)",
+                "category": "server-app",
+                "vendor": "F5 Networks",
+                "tags": ["f5", "big-ip", "load-balancer", "tmos", "security"],
+                "source_name": "Flexera Technopedia Catalog",
+                "source_url": "https://my.f5.com/manage/s/article/K8947",
+                "cycles": [
+                    {"cycle": "17.1", "release_date": "2023-05-18", "eoas_date": "2026-05-18", "eol_date": "2028-05-18", "is_lts": True, "is_eol": False},
+                    {"cycle": "16.1", "release_date": "2021-05-06", "eoas_date": "2024-05-06", "eol_date": "2026-05-06", "is_lts": True, "is_eol": False}
+                ]
+            },
+
+            # ==========================================
+            # ENTERPRISE DATA & ANALYTICS PLATFORMS
+            # ==========================================
+            {
+                "slug": "databricks-runtime",
+                "name": "Databricks Runtime",
+                "label": "Databricks Runtime (DBR) Spark Platform",
+                "category": "server-app",
+                "vendor": "Databricks",
+                "tags": ["databricks", "spark", "analytics", "data-lake", "ai"],
+                "source_name": "Flexera Technopedia Catalog",
+                "source_url": "https://docs.databricks.com/en/release-notes/runtime/index.html",
+                "cycles": [
+                    {"cycle": "14.3 LTS", "release_date": "2024-02-15", "eoas_date": "2027-02-15", "eol_date": "2027-02-15", "is_lts": True, "is_eol": False},
+                    {"cycle": "13.3 LTS", "release_date": "2023-07-20", "eoas_date": "2026-07-20", "eol_date": "2026-07-20", "is_lts": True, "is_eol": False},
+                    {"cycle": "12.2 LTS", "release_date": "2023-02-16", "eoas_date": "2026-02-16", "eol_date": "2026-02-16", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "mongodb",
+                "name": "MongoDB Enterprise",
+                "label": "MongoDB Enterprise Database",
+                "category": "database",
+                "vendor": "MongoDB, Inc.",
+                "tags": ["mongodb", "nosql", "database", "document"],
+                "source_name": "Versio.io Software Lifecycle API",
+                "source_url": "https://www.mongodb.com/support-policy/lifecycles",
+                "cycles": [
+                    {"cycle": "7.0", "release_date": "2023-08-15", "eoas_date": "2026-08-15", "eol_date": "2026-08-15", "is_lts": True, "is_eol": False},
+                    {"cycle": "6.0", "release_date": "2022-07-19", "eoas_date": "2025-07-31", "eol_date": "2025-07-31", "is_lts": True, "is_eol": False},
+                    {"cycle": "5.0", "release_date": "2021-07-13", "eoas_date": "2024-10-31", "eol_date": "2024-10-31", "is_lts": True, "is_eol": True}
+                ]
+            },
+            {
+                "slug": "elasticsearch",
+                "name": "Elasticsearch",
+                "label": "Elasticsearch Enterprise Search Platform",
+                "category": "database",
+                "vendor": "Elastic N.V.",
+                "tags": ["elastic", "elasticsearch", "search", "logs", "database"],
+                "source_name": "Versio.io Software Lifecycle API",
+                "source_url": "https://www.elastic.co/support/eol",
+                "cycles": [
+                    {"cycle": "8.12", "release_date": "2024-01-25", "eoas_date": "2026-07-25", "eol_date": "2026-07-25", "is_lts": True, "is_eol": False},
+                    {"cycle": "7.17", "release_date": "2022-01-31", "eoas_date": "2025-01-31", "eol_date": "2025-01-31", "is_lts": True, "is_eol": False}
+                ]
             }
         ]
 
