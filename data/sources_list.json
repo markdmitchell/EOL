@@ -9,6 +9,96 @@
     "description": "Official REST API for endoflife.date documenting EOL dates and support lifecycles for 470+ products."
   },
   {
+    "name": "Microsoft Support & Lifecycle Portal",
+    "category": "OS, Databases, Productivity, Azure, Dynamics",
+    "format": "HTML table, CSV, Excel, PDF",
+    "url": "https://support.microsoft.com",
+    "api_available": "Yes (Export Tool)",
+    "confidence_score": 1.0,
+    "description": "Official portal for Microsoft software retirement, servicing, and support lifecycle dates."
+  },
+  {
+    "name": ".NET Platform Support Policy",
+    "category": "Runtimes & Frameworks",
+    "format": "HTML table, JSON",
+    "url": "https://dotnet.microsoft.com/en-us/platform/support/policy",
+    "api_available": "Yes",
+    "confidence_score": 1.0,
+    "description": "Official servicing and support release policy for Microsoft .NET and .NET Core runtimes."
+  },
+  {
+    "name": "Apple Support (Vintage & Obsolete Products)",
+    "category": "Operating Systems & Hardware",
+    "format": "HTML table",
+    "url": "https://support.apple.com/en-us/102772",
+    "api_available": "No",
+    "confidence_score": 1.0,
+    "description": "Official Apple support documentation detailing vintage and obsolete lifecycle milestones for macOS and hardware."
+  },
+  {
+    "name": "Ubuntu Support Lifecycle (Canonical)",
+    "category": "Operating Systems",
+    "format": "HTML table, Plaintext (via CLI)",
+    "url": "https://ubuntu.com/support",
+    "api_available": "No",
+    "confidence_score": 1.0,
+    "description": "Official support, maintenance, and ESM cycle policy for Ubuntu Linux releases."
+  },
+  {
+    "name": "Red Hat Customer Portal (access.redhat.com)",
+    "category": "Operating Systems & Enterprise Software",
+    "format": "HTML table, Errata Feed",
+    "url": "https://access.redhat.com/support/policy/updates/errata",
+    "api_available": "No",
+    "confidence_score": 1.0,
+    "description": "Official documentation of lifecycle dates, support phases, and errata policies for Red Hat products."
+  },
+  {
+    "name": "Cisco Product Lifecycle & EOL Policy",
+    "category": "Networking & Infrastructure",
+    "format": "HTML table",
+    "url": "https://www.cisco.com/c/en/us/products/eos-eol-policy.html",
+    "api_available": "No",
+    "confidence_score": 1.0,
+    "description": "Official Cisco portal for End-of-Sale (EOS) and End-of-Life (EOL) policy announcements."
+  },
+  {
+    "name": "Fortinet Support Product Lifecycle",
+    "category": "Security & Network Hardware/OS",
+    "format": "HTML Matrix",
+    "url": "https://support.fortinet.com/Information/ProductLifeCycle.aspx",
+    "api_available": "No",
+    "confidence_score": 1.0,
+    "description": "Official Fortinet lifecycle portal documenting End of Engineering Support (EOES) and End of Support (EOS) for FortiOS."
+  },
+  {
+    "name": "Oracle Lifetime Support Policy",
+    "category": "Databases, Middleware, Applications",
+    "format": "HTML, PDF, Matrix tables",
+    "url": "https://www.oracle.com/support/lifetime-support/software.html",
+    "api_available": "No",
+    "confidence_score": 1.0,
+    "description": "Official portal documenting Premier, Extended, and Sustaining support stages for Oracle and MySQL products."
+  },
+  {
+    "name": "Atlassian Support EOL Policy",
+    "category": "Enterprise Applications & DevOps",
+    "format": "Plaintext, Documentation",
+    "url": "https://support.atlassian.com",
+    "api_available": "No",
+    "confidence_score": 1.0,
+    "description": "Official support policy and end-of-life dates for Atlassian Server and Data Center applications."
+  },
+  {
+    "name": "Discord Platform & Client Support Policy",
+    "category": "Communication & Client Apps",
+    "format": "Documentation",
+    "url": "https://support.discord.com",
+    "api_available": "No",
+    "confidence_score": 0.9,
+    "description": "Official support policy for Discord desktop, mobile clients, and supported operating system versions."
+  },
+  {
     "name": "Flexera Technopedia Catalog",
     "category": "Enterprise ITAM & Hardware/Software Lifecycle",
     "format": "JSON API, Automated Exports",
@@ -135,42 +225,6 @@
     "description": "Terminal-based CLI client built in Go for querying endoflife.date records locally for scripting and developer workflows."
   },
   {
-    "name": "Microsoft Lifecycle",
-    "category": "OS, Databases, Productivity, Azure, Dynamics",
-    "format": "HTML table, CSV, Excel, PDF",
-    "url": "https://learn.microsoft.com/en-us/lifecycle/",
-    "api_available": "Yes (Export Tool)",
-    "confidence_score": 1.0,
-    "description": "Official portal for Microsoft product retirement and support dates. Includes a product export tool for downloading data in list format."
-  },
-  {
-    "name": "Ubuntu (Canonical)",
-    "category": "Operating Systems",
-    "format": "HTML table, Plaintext (via CLI)",
-    "url": "https://ubuntu.com/about/release-cycle",
-    "api_available": "No",
-    "confidence_score": 1.0,
-    "description": "Official support and maintenance cycle information for Ubuntu Linux distributions, including LTS, Interim, and ESM details."
-  },
-  {
-    "name": "Red Hat Enterprise Linux Life Cycle",
-    "category": "Operating Systems",
-    "format": "HTML table",
-    "url": "https://access.redhat.com/support/policy/updates/errata",
-    "api_available": "No",
-    "confidence_score": 1.0,
-    "description": "Official documentation of lifecycle dates, support phases, and errata policies for RHEL versions 8, 9, and 10."
-  },
-  {
-    "name": "Oracle Lifecycle Support",
-    "category": "Databases, Middleware, Applications",
-    "format": "HTML, PDF, Matrix tables",
-    "url": "https://www.oracle.com/support/lifetime-support/software.html",
-    "api_available": "No",
-    "confidence_score": 1.0,
-    "description": "Official portal documenting Premier, Extended, and Sustaining support stages for Oracle and MySQL products."
-  },
-  {
     "name": "VMware End of Life Matrix",
     "category": "Virtualization (vSphere, ESXi, VCF)",
     "format": "HTML table, PDF",
@@ -196,15 +250,6 @@
     "api_available": "No",
     "confidence_score": 0.95,
     "description": "Official portal for Broadcom and VMware product lifecycle information and support notices."
-  },
-  {
-    "name": "PHP Supported Versions",
-    "category": "Programming Languages",
-    "format": "HTML table",
-    "url": "https://php.net/supported-versions.php",
-    "api_available": "No",
-    "confidence_score": 1.0,
-    "description": "Official release schedule for active and security-fix support for PHP versions."
   },
   {
     "name": "Node.js Release Schedule",
@@ -250,14 +295,5 @@
     "api_available": "No",
     "confidence_score": 1.0,
     "description": "Primary source for kernel maintenance tiers and projected EOL dates."
-  },
-  {
-    "name": "Go Release Policy",
-    "category": "Programming Languages",
-    "format": "Documentation",
-    "url": "https://golang.org/doc/devel/release",
-    "api_available": "No",
-    "confidence_score": 1.0,
-    "description": "Official support policy covering current major releases of the Go language."
   }
 ]

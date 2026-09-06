@@ -1,16 +1,75 @@
 import logging
-from typing import Any
-
+from typing import List, Dict, Any, Optional
 from db.database import Database
 
 logger = logging.getLogger(__name__)
 
 class EnterpriseVendorService:
-    def __init__(self, db: Database | None = None):
+    def __init__(self, db: Optional[Database] = None):
         self.db = db or Database()
 
-    def get_enterprise_vendor_catalog(self) -> list[dict[str, Any]]:
+    def get_enterprise_vendor_catalog(self) -> List[Dict[str, Any]]:
         return [
+            # ==========================================
+            # APPLE SUPPORT & MACOS
+            # ==========================================
+            {
+                "slug": "macos",
+                "name": "Apple macOS",
+                "label": "Apple macOS Operating System",
+                "category": "os",
+                "vendor": "Apple Inc.",
+                "tags": ["os", "apple", "macos", "desktop"],
+                "source_name": "Apple Support (Vintage & Obsolete Products)",
+                "source_url": "https://support.apple.com/en-us/102772",
+                "cycles": [
+                    {"cycle": "15", "release_date": "2024-09-16", "eoas_date": "2027-09-30", "eol_date": "2027-09-30", "is_lts": True, "is_eol": False},
+                    {"cycle": "14", "release_date": "2023-09-26", "eoas_date": "2026-09-30", "eol_date": "2026-09-30", "is_lts": True, "is_eol": False},
+                    {"cycle": "13", "release_date": "2022-10-24", "eoas_date": "2025-09-30", "eol_date": "2025-09-30", "is_lts": True, "is_eol": False},
+                    {"cycle": "12", "release_date": "2021-10-25", "eoas_date": "2024-09-30", "eol_date": "2024-09-30", "is_lts": True, "is_eol": True}
+                ]
+            },
+
+            # ==========================================
+            # FORTINET FORTIOS
+            # ==========================================
+            {
+                "slug": "fortios",
+                "name": "Fortinet FortiOS",
+                "label": "Fortinet FortiOS Security OS",
+                "category": "os",
+                "vendor": "Fortinet",
+                "tags": ["fortinet", "fortios", "firewall", "security"],
+                "source_name": "Fortinet Support Product Lifecycle",
+                "source_url": "https://support.fortinet.com/Information/ProductLifeCycle.aspx",
+                "cycles": [
+                    {"cycle": "7.6", "release_date": "2024-04-10", "eoas_date": "2027-04-10", "eol_date": "2028-10-10", "is_lts": True, "is_eol": False},
+                    {"cycle": "7.4", "release_date": "2023-05-11", "eoas_date": "2026-05-11", "eol_date": "2027-11-11", "is_lts": True, "is_eol": False},
+                    {"cycle": "7.2", "release_date": "2022-03-31", "eoas_date": "2025-03-31", "eol_date": "2026-09-30", "is_lts": True, "is_eol": False},
+                    {"cycle": "7.0", "release_date": "2021-03-30", "eoas_date": "2024-03-30", "eol_date": "2025-09-30", "is_lts": True, "is_eol": True}
+                ]
+            },
+
+            # ==========================================
+            # .NET PLATFORM
+            # ==========================================
+            {
+                "slug": "dotnet",
+                "name": ".NET",
+                "label": "Microsoft .NET Platform",
+                "category": "framework",
+                "vendor": "Microsoft Corporation",
+                "tags": ["dotnet", "microsoft", "csharp", "runtime"],
+                "source_name": ".NET Platform Support Policy",
+                "source_url": "https://dotnet.microsoft.com/en-us/platform/support/policy",
+                "cycles": [
+                    {"cycle": "9.0", "release_date": "2024-11-12", "eoas_date": "2026-05-12", "eol_date": "2026-05-12", "is_lts": False, "is_eol": False},
+                    {"cycle": "8.0", "release_date": "2023-11-14", "eoas_date": "2026-11-10", "eol_date": "2026-11-10", "is_lts": True, "is_eol": False},
+                    {"cycle": "7.0", "release_date": "2022-11-08", "eoas_date": "2024-05-14", "eol_date": "2024-05-14", "is_lts": False, "is_eol": True},
+                    {"cycle": "6.0", "release_date": "2021-11-08", "eoas_date": "2024-11-12", "eol_date": "2024-11-12", "is_lts": True, "is_eol": True}
+                ]
+            },
+
             # ==========================================
             # ATLASSIAN SUITE
             # ==========================================
@@ -235,7 +294,7 @@ class EnterpriseVendorService:
                 "category": "os",
                 "vendor": "Cisco Systems",
                 "tags": ["cisco", "ios-xe", "networking", "router", "switch"],
-                "source_name": "Cisco End-of-Life Policy",
+                "source_name": "Cisco Product Lifecycle & EOL Policy",
                 "source_url": "https://www.cisco.com/c/en/us/products/eos-eol-policy.html",
                 "cycles": [
                     {"cycle": "17.9", "release_date": "2022-07-31", "eoas_date": "2025-07-31", "eol_date": "2027-07-31", "is_lts": True, "is_eol": False},
