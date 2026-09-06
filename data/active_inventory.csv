@@ -1,0 +1,8 @@
+Runtime / Platform,Version,Release Type,Deployment Environment,Release Date,End of Active Support,End of Life (EOL) Date,Lifecycle Phase,Days to EOL,Risk Level,Target Upgrade Path,Migration Action Status
+Python,3.10,Standard,Data Engine Platform (Legacy),2021-10-04,2023-04-04,2026-10-04,Security Support,28,HIGH,Python 3.12 LTS,Migration Planned
+Node.js,18,LTS,Frontend Gateway Node-A,2022-04-19,2023-10-18,2025-04-30,End of Life,-494,CRITICAL (EOL),Node.js 22 LTS,In Progress
+Node.js,20,LTS,E-Commerce Core Checkout,2023-04-18,2024-10-22,2026-04-30,End of Life,-129,CRITICAL (EOL),Node.js 22 LTS,Migration Planned
+PHP,8.1,Standard,Corporate Public Website (WP),2021-11-25,2023-11-25,2025-12-31,End of Life,-249,CRITICAL (EOL),PHP 8.3,In Progress
+PHP,8.2,Standard,Internal Billing Dashboard,2022-12-08,2024-12-08,2026-12-31,Security Support,116,HIGH,PHP 8.3,No Action Needed
+.NET,8.0,LTS,Inventory API Services Cluster,2023-11-14,2025-05-14,2026-11-10,Security Support,65,HIGH,Stay on .NET 8.0,No Action Needed
+Python,3.12,Standard,ML Model Training Runner,2023-10-02,2025-04-02,2028-10-02,Active Support,757,LOW,Stay on Python 3.12,No Action Needed

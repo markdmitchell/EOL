@@ -1,0 +1,227 @@
+[
+  {
+    "name": "endoflife.date API v1",
+    "category": "Cross-platform",
+    "format": "REST JSON",
+    "url": "https://endoflife.date/docs/api/v1/",
+    "api_available": "Yes",
+    "confidence_score": 1.0,
+    "description": "Official REST API for endoflife.date documenting EOL dates and support lifecycles for 470+ products."
+  },
+  {
+    "name": "endoflife-date/release-data (GitHub)",
+    "category": "Software Releases (Cross-platform)",
+    "format": "JSON, YAML, Plaintext (Markdown)",
+    "url": "https://github.com/endoflife-date/release-data",
+    "api_available": "Yes (Flat file ingestion)",
+    "confidence_score": 1.0,
+    "description": "Official companion repository containing raw, automatically updated release schedules and EOL information for offline ingestion."
+  },
+  {
+    "name": "Transparency Exchange API (TEA)",
+    "category": "Software Supply Chain (xBOM, VEX, Product Releases)",
+    "format": "JSON (via CycloneDX/OpenVEX)",
+    "url": "https://github.com/CycloneDX/transparency-exchange-api",
+    "api_available": "Yes",
+    "confidence_score": 0.95,
+    "description": "An open-source standard API specification (ECMA TC54) for exchanging supply chain artifacts and operational lifecycle milestones."
+  },
+  {
+    "name": "xeol.io Database Listing",
+    "category": "Vulnerability/EOL Aggregator",
+    "format": "JSON, SQLite (DB)",
+    "url": "https://data.xeol.io/xeol/databases/listing.json",
+    "api_available": "Yes",
+    "confidence_score": 0.95,
+    "description": "Open-source EOL scanner and database providing structured offline SQLite downloads for products and container OS timelines."
+  },
+  {
+    "name": "ECMA-428 Common Lifecycle Enumeration (CLE)",
+    "category": "Software and Hardware milestones",
+    "format": "Machine-readable JSON, Event-stream",
+    "url": "https://ecma-international.org/publications-and-standards/standards/ecma-428/",
+    "api_available": "Yes (Specification-based)",
+    "confidence_score": 0.95,
+    "description": "A unified machine-readable specification for communicating EOL, EOS, and security-fix cessation milestones within catalogs."
+  },
+  {
+    "name": "Vulnetix",
+    "category": "SBOM and CLE lifecycle milestones",
+    "format": "JSON (TEA/CLE Standard)",
+    "url": "https://www.vulnetix.com/features/transparency-exchange",
+    "api_available": "Yes",
+    "confidence_score": 0.9,
+    "description": "An open-source platform providing a reference server that implements the TEA specification to serve and query lifecycle milestones."
+  },
+  {
+    "name": "Flexera One (IT Visibility)",
+    "category": "Software, Hardware, SaaS, and Cloud",
+    "format": "Automated reports",
+    "url": "https://www.flexera.com/products/flexera-one/it-visibility",
+    "api_available": "Yes (Automated discovery)",
+    "confidence_score": 0.9,
+    "description": "IT Asset Management (ITAM) platform with automated tracking and alerts for products nearing EOL or EOS dates."
+  },
+  {
+    "name": "endoflife_exporter",
+    "category": "Infrastructure Lifecycle Metrics",
+    "format": "Prometheus Metrics",
+    "url": "https://github.com/veerendra2/endoflife_exporter",
+    "api_available": "Yes",
+    "confidence_score": 0.9,
+    "description": "Prometheus metrics exporter that fetches product lifecycles via API to trigger alerts and display timelines on Grafana."
+  },
+  {
+    "name": "endoflife-dependencytrack",
+    "category": "Software Vulnerability/Compliance",
+    "format": "JSON (API data)",
+    "url": "https://github.com/Chriz76/endoflife-dependencytrack",
+    "api_available": "Yes",
+    "confidence_score": 0.9,
+    "description": "Integration that pulls endoflife.date API data and injects it into OWASP Dependency-Track as internal software vulnerabilities."
+  },
+  {
+    "name": "eol CLI",
+    "category": "General Software (endoflife.date)",
+    "format": "Plaintext (CLI)",
+    "url": "https://github.com/kobayashi/eol",
+    "api_available": "Yes",
+    "confidence_score": 0.9,
+    "description": "Terminal-based CLI client built in Go for querying endoflife.date records locally for scripting and developer workflows."
+  },
+  {
+    "name": "Microsoft Lifecycle",
+    "category": "OS, Databases, Productivity, Azure, Dynamics",
+    "format": "HTML table, CSV, Excel, PDF",
+    "url": "https://learn.microsoft.com/en-us/lifecycle/",
+    "api_available": "Yes (Export Tool)",
+    "confidence_score": 1.0,
+    "description": "Official portal for Microsoft product retirement and support dates. Includes a product export tool for downloading data in list format."
+  },
+  {
+    "name": "Ubuntu (Canonical)",
+    "category": "Operating Systems",
+    "format": "HTML table, Plaintext (via CLI)",
+    "url": "https://ubuntu.com/about/release-cycle",
+    "api_available": "No",
+    "confidence_score": 1.0,
+    "description": "Official support and maintenance cycle information for Ubuntu Linux distributions, including LTS, Interim, and ESM details."
+  },
+  {
+    "name": "Red Hat Enterprise Linux Life Cycle",
+    "category": "Operating Systems",
+    "format": "HTML table",
+    "url": "https://access.redhat.com/support/policy/updates/errata",
+    "api_available": "No",
+    "confidence_score": 1.0,
+    "description": "Official documentation of lifecycle dates, support phases, and errata policies for RHEL versions 8, 9, and 10."
+  },
+  {
+    "name": "Oracle Lifecycle Support",
+    "category": "Databases, Middleware, Applications",
+    "format": "HTML, PDF, Matrix tables",
+    "url": "https://www.oracle.com/support/lifetime-support/software.html",
+    "api_available": "No",
+    "confidence_score": 1.0,
+    "description": "Official portal documenting Premier, Extended, and Sustaining support stages for Oracle and MySQL products."
+  },
+  {
+    "name": "VMware End of Life Matrix",
+    "category": "Virtualization (vSphere, ESXi, VCF)",
+    "format": "HTML table, PDF",
+    "url": "https://www.vmwaremigrationhub.com/guides/vmware-end-of-life",
+    "api_available": "No",
+    "confidence_score": 0.95,
+    "description": "Comprehensive matrix of VMware lifecycle dates, including End of General Support (EOGS) and Technical Guidance."
+  },
+  {
+    "name": "Platform EOL Radar",
+    "category": "ERP, CRM, Infrastructure, Hardware",
+    "format": "HTML table",
+    "url": "https://globaldigitalit.com/tools/eol-radar/",
+    "api_available": "No",
+    "confidence_score": 0.85,
+    "description": "Independent, vendor-neutral radar tracking business-critical platforms approaching end of support with migration dates."
+  },
+  {
+    "name": "Broadcom Product Lifecycle",
+    "category": "Virtualization, Cloud Infrastructure",
+    "format": "HTML table",
+    "url": "https://support.broadcom.com/group/ecx/productlifecycle",
+    "api_available": "No",
+    "confidence_score": 0.95,
+    "description": "Official portal for Broadcom and VMware product lifecycle information and support notices."
+  },
+  {
+    "name": "HeroDevs NES Documentation",
+    "category": "Software Frameworks (JS, Java, .NET)",
+    "format": "Plaintext, Markdown",
+    "url": "https://docs.herodevs.com/guide/getting-started",
+    "api_available": "No",
+    "confidence_score": 0.9,
+    "description": "Technical documentation and release notes for Never-Ending Support (NES) products for EOL frameworks."
+  },
+  {
+    "name": "PHP Supported Versions",
+    "category": "Programming Languages",
+    "format": "HTML table",
+    "url": "https://php.net/supported-versions.php",
+    "api_available": "No",
+    "confidence_score": 1.0,
+    "description": "Official release schedule for active and security-fix support for PHP versions."
+  },
+  {
+    "name": "Node.js Release Schedule",
+    "category": "Runtimes",
+    "format": "GitHub Repository",
+    "url": "https://github.com/nodejs/Release",
+    "api_available": "No",
+    "confidence_score": 1.0,
+    "description": "Tracks active, LTS, and maintenance windows for the Node.js runtime."
+  },
+  {
+    "name": "Azure Updates",
+    "category": "Cloud Services (Azure)",
+    "format": "HTML table (list)",
+    "url": "https://azure.microsoft.com/updates/?updateType=retirements",
+    "api_available": "No",
+    "confidence_score": 1.0,
+    "description": "Reference for specific Azure service retirements and updates beyond standard lifecycle policies."
+  },
+  {
+    "name": "Hostcarts.ae",
+    "category": "OS, Office, Developer Tools, Databases",
+    "format": "HTML table",
+    "url": "https://hostcarts.ae/news/approaching-2026-software-endoflife-eol-deadlines",
+    "api_available": "No",
+    "confidence_score": 0.8,
+    "description": "Summary table of 2026 EOL deadlines for major Microsoft products including Windows 11 and SQL Server."
+  },
+  {
+    "name": "SAP ECC 6.0 Maintenance",
+    "category": "Enterprise Resource Planning (ERP)",
+    "format": "Plaintext",
+    "url": "https://www.savictech.com/insights/ecc-end-of-maintenance-2027/",
+    "api_available": "No",
+    "confidence_score": 0.9,
+    "description": "Information regarding the end of mainstream maintenance for SAP ECC 6.0 scheduled for December 2027."
+  },
+  {
+    "name": "Linux Kernel Archives",
+    "category": "Linux Kernels",
+    "format": "Plaintext, Git",
+    "url": "https://kernel.org",
+    "api_available": "No",
+    "confidence_score": 1.0,
+    "description": "Primary source for kernel maintenance tiers and projected EOL dates."
+  },
+  {
+    "name": "Go Release Policy",
+    "category": "Programming Languages",
+    "format": "Documentation",
+    "url": "https://golang.org/doc/devel/release",
+    "api_available": "No",
+    "confidence_score": 1.0,
+    "description": "Official support policy covering current major releases of the Go language."
+  }
+]
