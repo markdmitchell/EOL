@@ -9,6 +9,60 @@
     "description": "Official REST API for endoflife.date documenting EOL dates and support lifecycles for 470+ products."
   },
   {
+    "name": "Flexera Technopedia Catalog",
+    "category": "Enterprise ITAM & Hardware/Software Lifecycle",
+    "format": "JSON API, Automated Exports",
+    "url": "https://www.flexera.com/products/flexera-one/it-visibility/technopedia",
+    "api_available": "Yes",
+    "confidence_score": 0.95,
+    "description": "Comprehensive hardware and software asset taxonomy dictionary detailing release, support, and EOL milestones."
+  },
+  {
+    "name": "Versio.io Software Lifecycle API",
+    "category": "IT Governance & Software EOL Tracker",
+    "format": "REST JSON",
+    "url": "https://www.versio.io/product-software-lifecycle-management.html",
+    "api_available": "Yes",
+    "confidence_score": 0.9,
+    "description": "Automated IT governance platform providing software version lifecycle monitoring and end-of-support alerts."
+  },
+  {
+    "name": "HeroDevs NES Documentation",
+    "category": "Software Frameworks (JS, Java, .NET)",
+    "format": "Plaintext, Markdown",
+    "url": "https://docs.herodevs.com/guide/getting-started",
+    "api_available": "No",
+    "confidence_score": 0.9,
+    "description": "Technical documentation and release notes for Never-Ending Support (NES) products for EOL frameworks."
+  },
+  {
+    "name": "xeol.io Database Listing",
+    "category": "Vulnerability/EOL Aggregator",
+    "format": "JSON, SQLite (DB)",
+    "url": "https://data.xeol.io/xeol/databases/listing.json",
+    "api_available": "Yes",
+    "confidence_score": 0.95,
+    "description": "Open-source EOL scanner and database providing structured offline SQLite downloads for products and container OS timelines."
+  },
+  {
+    "name": "Repology API",
+    "category": "Linux Distributions & Open Source Packages",
+    "format": "REST JSON",
+    "url": "https://repology.org/api",
+    "api_available": "Yes",
+    "confidence_score": 0.9,
+    "description": "Comprehensive package version tracking project monitoring software package status across 200+ repositories and Linux distros."
+  },
+  {
+    "name": "Libraries.io API",
+    "category": "Open Source Ecosystems (PyPI, npm, Maven, Cargo)",
+    "format": "REST JSON",
+    "url": "https://libraries.io/api",
+    "api_available": "Yes",
+    "confidence_score": 0.9,
+    "description": "Open source dependency monitoring platform indexing software package releases, deprecation notices, and versions across 32 package managers."
+  },
+  {
     "name": "endoflife-date/release-data (GitHub)",
     "category": "Software Releases (Cross-platform)",
     "format": "JSON, YAML, Plaintext (Markdown)",
@@ -25,15 +79,6 @@
     "api_available": "Yes",
     "confidence_score": 0.95,
     "description": "An open-source standard API specification (ECMA TC54) for exchanging supply chain artifacts and operational lifecycle milestones."
-  },
-  {
-    "name": "xeol.io Database Listing",
-    "category": "Vulnerability/EOL Aggregator",
-    "format": "JSON, SQLite (DB)",
-    "url": "https://data.xeol.io/xeol/databases/listing.json",
-    "api_available": "Yes",
-    "confidence_score": 0.95,
-    "description": "Open-source EOL scanner and database providing structured offline SQLite downloads for products and container OS timelines."
   },
   {
     "name": "ECMA-428 Common Lifecycle Enumeration (CLE)",
@@ -151,15 +196,6 @@
     "api_available": "No",
     "confidence_score": 0.95,
     "description": "Official portal for Broadcom and VMware product lifecycle information and support notices."
-  },
-  {
-    "name": "HeroDevs NES Documentation",
-    "category": "Software Frameworks (JS, Java, .NET)",
-    "format": "Plaintext, Markdown",
-    "url": "https://docs.herodevs.com/guide/getting-started",
-    "api_available": "No",
-    "confidence_score": 0.9,
-    "description": "Technical documentation and release notes for Never-Ending Support (NES) products for EOL frameworks."
   },
   {
     "name": "PHP Supported Versions",
