@@ -1,14 +1,15 @@
 from dataclasses import dataclass, field
-from typing import List, Optional, Dict, Any
+from typing import Any
+
 
 @dataclass
 class ProductVersion:
     name: str
-    date: Optional[str] = None
-    link: Optional[str] = None
+    date: str | None = None
+    link: str | None = None
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "ProductVersion":
+    def from_dict(cls, data: dict[str, Any]) -> "ProductVersion":
         if not data:
             return None
         return cls(
@@ -20,25 +21,25 @@ class ProductVersion:
 @dataclass
 class ReleaseCycle:
     name: str
-    release_date: Optional[str] = None
+    release_date: str | None = None
     is_eol: bool = False
-    eol_from: Optional[str] = None
+    eol_from: str | None = None
     is_lts: bool = False
-    lts_from: Optional[str] = None
-    is_eoas: Optional[bool] = None
-    eoas_from: Optional[str] = None
-    is_discontinued: Optional[bool] = None
-    discontinued_from: Optional[str] = None
-    is_eoes: Optional[bool] = None
-    eoes_from: Optional[str] = None
+    lts_from: str | None = None
+    is_eoas: bool | None = None
+    eoas_from: str | None = None
+    is_discontinued: bool | None = None
+    discontinued_from: str | None = None
+    is_eoes: bool | None = None
+    eoes_from: str | None = None
     is_maintained: bool = False
-    codename: Optional[str] = None
-    label: Optional[str] = None
-    latest: Optional[ProductVersion] = None
-    custom: Optional[Dict[str, Any]] = None
+    codename: str | None = None
+    label: str | None = None
+    latest: ProductVersion | None = None
+    custom: dict[str, Any] | None = None
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "ReleaseCycle":
+    def from_dict(cls, data: dict[str, Any]) -> "ReleaseCycle":
         latest_data = data.get("latest")
         latest_obj = ProductVersion.from_dict(latest_data) if latest_data and isinstance(latest_data, dict) else None
         
@@ -71,13 +72,13 @@ class ReleaseCycle:
 class ProductSummary:
     name: str
     label: str
-    aliases: List[str] = field(default_factory=list)
-    category: Optional[str] = None
-    tags: List[str] = field(default_factory=list)
-    uri: Optional[str] = None
+    aliases: list[str] = field(default_factory=list)
+    category: str | None = None
+    tags: list[str] = field(default_factory=list)
+    uri: str | None = None
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "ProductSummary":
+    def from_dict(cls, data: dict[str, Any]) -> "ProductSummary":
         return cls(
             name=data.get("name", ""),
             label=data.get("label", data.get("name", "")),
@@ -91,15 +92,15 @@ class ProductSummary:
 class ProductDetails:
     name: str
     label: str
-    aliases: List[str] = field(default_factory=list)
-    category: Optional[str] = None
-    tags: List[str] = field(default_factory=list)
-    version_command: Optional[str] = None
-    identifiers: List[Dict[str, Any]] = field(default_factory=list)
-    releases: List[ReleaseCycle] = field(default_factory=list)
+    aliases: list[str] = field(default_factory=list)
+    category: str | None = None
+    tags: list[str] = field(default_factory=list)
+    version_command: str | None = None
+    identifiers: list[dict[str, Any]] = field(default_factory=list)
+    releases: list[ReleaseCycle] = field(default_factory=list)
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "ProductDetails":
+    def from_dict(cls, data: dict[str, Any]) -> "ProductDetails":
         raw_releases = data.get("releases", [])
         releases = [ReleaseCycle.from_dict(r) for r in raw_releases if isinstance(r, dict)]
         return cls(
@@ -119,7 +120,7 @@ class ResourceLink:
     uri: str
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "ResourceLink":
+    def from_dict(cls, data: dict[str, Any]) -> "ResourceLink":
         return cls(
             name=data.get("name", ""),
             uri=data.get("uri", "")

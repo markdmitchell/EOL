@@ -1,10 +1,10 @@
-import unittest
-from unittest.mock import patch, MagicMock
 import json
-import io
+import unittest
+from unittest.mock import MagicMock, patch
 
-from endoflife import EndoflifeClient, ProductSummary, ProductDetails, ReleaseCycle
-from endoflife.client import ResourceNotFoundError, EndoflifeAPIError
+from endoflife import EndoflifeClient, ProductDetails, ProductSummary
+from endoflife.client import ResourceNotFoundError
+
 
 class TestEndoflifeClientMocked(unittest.TestCase):
 

@@ -1,14 +1,15 @@
 import logging
-from typing import List, Dict, Any, Optional
+from typing import Any
+
 from db.database import Database
 
 logger = logging.getLogger(__name__)
 
 class EnterpriseVendorService:
-    def __init__(self, db: Optional[Database] = None):
+    def __init__(self, db: Database | None = None):
         self.db = db or Database()
 
-    def get_enterprise_vendor_catalog(self) -> List[Dict[str, Any]]:
+    def get_enterprise_vendor_catalog(self) -> list[dict[str, Any]]:
         return [
             # ==========================================
             # ATLASSIAN SUITE

@@ -4,22 +4,28 @@ Official API documentation: https://endoflife.date/docs/api/v1/
 """
 
 from .client import (
-    EndoflifeClient,
     EndoflifeAPIError,
-    ResourceNotFoundError,
+    EndoflifeClient,
     RateLimitError,
+    ResourceNotFoundError,
 )
-from .models import ProductSummary, ProductDetails, ReleaseCycle, ResourceLink, ProductVersion
+from .models import (
+    ProductDetails,
+    ProductSummary,
+    ProductVersion,
+    ReleaseCycle,
+    ResourceLink,
+)
 
 __version__ = "0.1.0"
 __all__ = [
-    "EndoflifeClient",
     "EndoflifeAPIError",
-    "ResourceNotFoundError",
-    "RateLimitError",
-    "ProductSummary",
+    "EndoflifeClient",
     "ProductDetails",
+    "ProductSummary",
+    "ProductVersion",
+    "RateLimitError",
     "ReleaseCycle",
     "ResourceLink",
-    "ProductVersion",
+    "ResourceNotFoundError",
 ]

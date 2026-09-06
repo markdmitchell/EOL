@@ -1,9 +1,10 @@
-from typing import List, Dict, Any, Optional
-from datetime import datetime, date
+from typing import Any
+
 from db.database import Database
 
+
 class SearchService:
-    def __init__(self, db: Optional[Database] = None):
+    def __init__(self, db: Database | None = None):
         self.db = db or Database()
 
     def search_catalog(
@@ -13,7 +14,7 @@ class SearchService:
         tag: str = "",
         eol_only: bool = False,
         lts_only: bool = False
-    ) -> List[Dict[str, Any]]:
+    ) -> list[dict[str, Any]]:
         """
         Search products and retrieve their release cycles, multi-source provenance, and collision flags.
         """
@@ -46,7 +47,7 @@ class SearchService:
 
         return results
 
-    def _detect_date_collisions(self, prov_records: List[Dict[str, Any]]) -> bool:
+    def _detect_date_collisions(self, prov_records: list[dict[str, Any]]) -> bool:
         """
         Detects if multiple provenance records for the same entity report conflicting EOL dates.
         """
@@ -62,7 +63,7 @@ class SearchService:
 
         return len(dates) > 1
 
-    def get_product_details_with_provenance(self, slug: str) -> Optional[Dict[str, Any]]:
+    def get_product_details_with_provenance(self, slug: str) -> dict[str, Any] | None:
         product = self.db.get_product_by_slug(slug)
         if not product:
             return None
@@ -84,7 +85,7 @@ class SearchService:
             "provenance": product_prov
         }
 
-    def get_inventory_risk_summary(self) -> Dict[str, Any]:
+    def get_inventory_risk_summary(self) -> dict[str, Any]:
         items = self.db.get_all_inventory_items()
         critical_count = sum(1 for i in items if i["risk_level"] == "CRITICAL (EOL)")
         high_count = sum(1 for i in items if i["risk_level"] == "HIGH")

@@ -4,6 +4,7 @@ Example script demonstrating how to connect to and query the endoflife.date API.
 
 from endoflife import EndoflifeClient, ResourceNotFoundError
 
+
 def main():
     client = EndoflifeClient()
 

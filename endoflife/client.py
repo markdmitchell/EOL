@@ -1,11 +1,11 @@
 import json
-import urllib.request
 import urllib.error
-from typing import List, Optional, Dict, Any, Union
+import urllib.request
+from typing import Any
 
 from .models import (
-    ProductSummary,
     ProductDetails,
+    ProductSummary,
     ReleaseCycle,
     ResourceLink,
 )
@@ -14,17 +14,15 @@ BASE_URL = "https://endoflife.date/api/v1"
 
 class EndoflifeAPIError(Exception):
     """Base exception for Endoflife API errors."""
-    def __init__(self, message: str, status_code: Optional[int] = None):
+    def __init__(self, message: str, status_code: int | None = None):
         super().__init__(message)
         self.status_code = status_code
 
 class ResourceNotFoundError(EndoflifeAPIError):
     """Raised when a product, release, category, tag, or identifier is not found (404)."""
-    pass
 
 class RateLimitError(EndoflifeAPIError):
     """Raised when rate limit is exceeded (429)."""
-    pass
 
 class EndoflifeClient:
     """
@@ -62,17 +60,17 @@ class EndoflifeClient:
         except urllib.error.URLError as e:
             raise EndoflifeAPIError(f"Connection failed: {e.reason}") from e
 
-    def get_index(self) -> List[ResourceLink]:
+    def get_index(self) -> list[ResourceLink]:
         """List main API endpoints."""
         data = self._request("/")
         return [ResourceLink.from_dict(item) for item in data]
 
-    def get_products(self) -> List[ProductSummary]:
+    def get_products(self) -> list[ProductSummary]:
         """List all tracked products summary."""
         data = self._request("/products")
         return [ProductSummary.from_dict(item) for item in data]
 
-    def get_products_full(self) -> List[ProductDetails]:
+    def get_products_full(self) -> list[ProductDetails]:
         """List all products with complete release and identifier details."""
         data = self._request("/products/full")
         return [ProductDetails.from_dict(item) for item in data]
@@ -92,31 +90,31 @@ class EndoflifeClient:
         data = self._request(f"/products/{product}/releases/latest")
         return ReleaseCycle.from_dict(data)
 
-    def get_categories(self) -> List[ResourceLink]:
+    def get_categories(self) -> list[ResourceLink]:
         """List all categories."""
         data = self._request("/categories")
         return [ResourceLink.from_dict(item) for item in data]
 
-    def get_category_products(self, category: str) -> List[ProductSummary]:
+    def get_category_products(self, category: str) -> list[ProductSummary]:
         """List all products within a specific category."""
         data = self._request(f"/categories/{category}")
         return [ProductSummary.from_dict(item) for item in data]
 
-    def get_tags(self) -> List[ResourceLink]:
+    def get_tags(self) -> list[ResourceLink]:
         """List all tags."""
         data = self._request("/tags")
         return [ResourceLink.from_dict(item) for item in data]
 
-    def get_tagged_products(self, tag: str) -> List[ProductSummary]:
+    def get_tagged_products(self, tag: str) -> list[ProductSummary]:
         """List all products matching a specific tag."""
         data = self._request(f"/tags/{tag}")
         return [ProductSummary.from_dict(item) for item in data]
 
-    def get_identifier_types(self) -> List[ResourceLink]:
+    def get_identifier_types(self) -> list[ResourceLink]:
         """List all identifier types (e.g. purl, cpe)."""
         data = self._request("/identifiers")
         return [ResourceLink.from_dict(item) for item in data]
 
-    def get_identifiers(self, identifier_type: str) -> List[Dict[str, Any]]:
+    def get_identifiers(self, identifier_type: str) -> list[dict[str, Any]]:
         """List all identifiers for a given type."""
         return self._request(f"/identifiers/{identifier_type}")

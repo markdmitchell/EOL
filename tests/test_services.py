@@ -1,10 +1,11 @@
-import unittest
 import os
 import tempfile
+import unittest
+
 from db.database import Database
-from services.sync import SyncService
 from services.csv_importer import CSVImporter
 from services.search import SearchService
+
 
 class TestDatabaseAndServices(unittest.TestCase):
 

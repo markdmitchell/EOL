@@ -1,10 +1,10 @@
 import argparse
 import sys
-from typing import Optional
 
-from .client import EndoflifeClient, ResourceNotFoundError, EndoflifeAPIError
+from .client import EndoflifeAPIError, EndoflifeClient, ResourceNotFoundError
 
-def main(args: Optional[list] = None) -> None:
+
+def main(args: list | None = None) -> None:
     parser = argparse.ArgumentParser(
         prog="endoflife",
         description="CLI tool to query EOL (End-of-Life) dates and product lifecycles via endoflife.date"

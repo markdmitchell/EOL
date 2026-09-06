@@ -1,15 +1,13 @@
-import streamlit as st
+
 import pandas as pd
-from datetime import datetime, date
-import os
-import json
+import streamlit as st
 
 from db.database import Database
+from services.csv_importer import CSVImporter
+from services.enterprise_vendors import EnterpriseVendorService
+from services.multi_source import MultiSourceService
 from services.search import SearchService
 from services.sync import SyncService
-from services.csv_importer import CSVImporter
-from services.multi_source import MultiSourceService
-from services.enterprise_vendors import EnterpriseVendorService
 
 # Page Configuration
 st.set_page_config(
@@ -209,7 +207,7 @@ elif nav_choice == "📚 24 Data Sources Registry":
     # Filters
     f1, f2 = st.columns(2)
     with f1:
-        cat_select = st.selectbox("Filter Source Category", ["All Categories"] + list(set(s["category"] for s in sources)))
+        cat_select = st.selectbox("Filter Source Category", ["All Categories"] + sorted({s["category"] for s in sources}))
     with f2:
         search_src = st.text_input("Search Source Name / Keyword", "")
 
@@ -299,11 +297,10 @@ elif nav_choice == "⚙️ Data Ingestion & Management":
         st.write("Upload a CSV file with enterprise runtime environment inventory records.")
 
         uploaded_csv = st.file_uploader("Choose Inventory CSV", type=["csv"])
-        if uploaded_csv is not None:
-            if st.button("Process & Import CSV"):
-                with st.spinner("Processing CSV and calculating dynamic EOL risk metrics..."):
-                    count = csv_imp.import_inventory_csv(uploaded_csv, source_name="Uploaded Enterprise CSV")
-                    st.success(f"Successfully imported {count} inventory records!")
+        if uploaded_csv is not None and st.button("Process & Import CSV"):
+            with st.spinner("Processing CSV and calculating dynamic EOL risk metrics..."):
+                count = csv_imp.import_inventory_csv(uploaded_csv, source_name="Uploaded Enterprise CSV")
+                st.success(f"Successfully imported {count} inventory records!")
 
     st.divider()
     st.subheader("➕ Register Custom Niche Software EOL Record")

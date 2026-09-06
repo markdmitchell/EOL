@@ -1,12 +1,12 @@
 import csv
 import io
-import os
-from datetime import datetime, date
-from typing import List, Dict, Any, Optional
+from datetime import datetime, timezone
+
 from db.database import Database
 
+
 class CSVImporter:
-    def __init__(self, db: Optional[Database] = None):
+    def __init__(self, db: Database | None = None):
         self.db = db or Database()
 
     def import_inventory_csv(self, file_path_or_buffer, source_name: str = "Enterprise Runtime Inventory CSV") -> int:
@@ -26,7 +26,7 @@ class CSVImporter:
             rows = list(reader)
 
         imported_count = 0
-        today = date.today()
+        today = datetime.now(timezone.utc).date()
 
         for row in rows:
             platform = row.get("Runtime / Platform") or row.get("Platform") or row.get("Software") or ""
@@ -49,7 +49,7 @@ class CSVImporter:
 
             if eol_date:
                 try:
-                    eol_dt = datetime.strptime(eol_date.strip(), "%Y-%m-%d").date()
+                    eol_dt = datetime.strptime(eol_date.strip(), "%Y-%m-%d").replace(tzinfo=timezone.utc).date()
                     delta = (eol_dt - today).days
                     days_to_eol = delta
 

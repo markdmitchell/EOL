@@ -4,19 +4,17 @@ Fetches live EOL/EOS data from primary APIs, flat repositories, and vendor docum
 populating the local SQLite database with comprehensive data provenance.
 """
 
-import urllib.request
-import urllib.error
 import json
 import logging
-import time
 import os
-import sys
-from datetime import datetime, timezone
+import time
+import urllib.error
+import urllib.request
 
 from db.database import Database
+from services.csv_importer import CSVImporter
 from services.multi_source import MultiSourceService
 from services.sync import SyncService
-from services.csv_importer import CSVImporter
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)

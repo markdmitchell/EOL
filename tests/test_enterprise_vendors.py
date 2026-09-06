@@ -1,9 +1,11 @@
-import unittest
 import os
 import tempfile
+import unittest
+
 from db.database import Database
 from services.enterprise_vendors import EnterpriseVendorService
 from services.search import SearchService
+
 
 class TestEnterpriseVendors(unittest.TestCase):
 

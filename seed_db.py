@@ -5,11 +5,12 @@ syncs popular software products from endoflife.date API, and imports enterprise 
 """
 
 import os
-import sys
+
 from db.database import Database
-from services.sync import SyncService
 from services.csv_importer import CSVImporter
 from services.multi_source import MultiSourceService
+from services.sync import SyncService
+
 
 def seed():
     print("=== Initializing EOL/EOS Database ===")

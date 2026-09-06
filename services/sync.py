@@ -1,12 +1,12 @@
 import logging
-from typing import List, Optional
-from endoflife import EndoflifeClient
+
 from db.database import Database
+from endoflife import EndoflifeClient
 
 logger = logging.getLogger(__name__)
 
 class SyncService:
-    def __init__(self, db: Optional[Database] = None, client: Optional[EndoflifeClient] = None):
+    def __init__(self, db: Database | None = None, client: EndoflifeClient | None = None):
         self.db = db or Database()
         self.client = client or EndoflifeClient()
 

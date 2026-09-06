@@ -1,8 +1,10 @@
-import unittest
 import os
 import tempfile
+import unittest
+
 from db.database import Database
 from services.multi_source import MultiSourceService
+
 
 class TestMultiSourceIntegration(unittest.TestCase):
 

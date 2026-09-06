@@ -1,8 +1,8 @@
-import sqlite3
 import json
 import os
-from typing import List, Dict, Any, Optional, Tuple
+import sqlite3
 from datetime import datetime, timezone
+from typing import Any
 
 DEFAULT_DB_PATH = os.path.join(os.path.dirname(__file__), "eol_database.db")
 
@@ -152,13 +152,13 @@ class Database:
             row = cursor.fetchone()
             return row["id"]
 
-    def get_all_data_sources(self) -> List[Dict[str, Any]]:
+    def get_all_data_sources(self) -> list[dict[str, Any]]:
         with self.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM data_sources ORDER BY confidence_score DESC, name ASC;")
             return [dict(row) for row in cursor.fetchall()]
 
-    def get_data_source_by_name(self, name: str) -> Optional[Dict[str, Any]]:
+    def get_data_source_by_name(self, name: str) -> dict[str, Any] | None:
         with self.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM data_sources WHERE name = ?;", (name,))
@@ -171,10 +171,10 @@ class Database:
         slug: str,
         name: str,
         label: str,
-        category: Optional[str] = None,
-        vendor: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-        version_command: Optional[str] = None
+        category: str | None = None,
+        vendor: str | None = None,
+        tags: list[str] | None = None,
+        version_command: str | None = None
     ) -> int:
         tags_str = json.dumps(tags or [])
         now = datetime.now(timezone.utc).isoformat()
@@ -200,18 +200,18 @@ class Database:
         self,
         product_id: int,
         cycle: str,
-        label: Optional[str] = None,
-        codename: Optional[str] = None,
-        release_date: Optional[str] = None,
-        eoas_date: Optional[str] = None,
-        eol_date: Optional[str] = None,
-        eoes_date: Optional[str] = None,
+        label: str | None = None,
+        codename: str | None = None,
+        release_date: str | None = None,
+        eoas_date: str | None = None,
+        eol_date: str | None = None,
+        eoes_date: str | None = None,
         is_lts: bool = False,
         is_eol: bool = False,
         is_maintained: bool = False,
-        latest_version: Optional[str] = None,
-        latest_release_date: Optional[str] = None,
-        custom_metadata: Optional[Dict[str, Any]] = None
+        latest_version: str | None = None,
+        latest_release_date: str | None = None,
+        custom_metadata: dict[str, Any] | None = None
     ) -> int:
         custom_str = json.dumps(custom_metadata) if custom_metadata else None
         with self.get_connection() as conn:
@@ -249,11 +249,11 @@ class Database:
         entity_type: str,
         entity_id: int,
         source_name: str,
-        source_url: Optional[str] = None,
-        license: Optional[str] = None,
+        source_url: str | None = None,
+        license: str | None = None,
         confidence_score: float = 1.0,
-        notes: Optional[str] = None,
-        data_source_id: Optional[int] = None
+        notes: str | None = None,
+        data_source_id: int | None = None
     ) -> int:
         now = datetime.now(timezone.utc).isoformat()
         if not data_source_id:
@@ -270,7 +270,7 @@ class Database:
             """, (entity_type, entity_id, data_source_id, source_name, source_url, license, now, now, confidence_score, notes))
             return cursor.lastrowid
 
-    def get_provenance(self, entity_type: str, entity_id: int) -> List[Dict[str, Any]]:
+    def get_provenance(self, entity_type: str, entity_id: int) -> list[dict[str, Any]]:
         with self.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("""
@@ -282,7 +282,7 @@ class Database:
             """, (entity_type, entity_id))
             return [dict(row) for row in cursor.fetchall()]
 
-    def search_products(self, query: str = "", category: str = "", tag: str = "") -> List[Dict[str, Any]]:
+    def search_products(self, query: str = "", category: str = "", tag: str = "") -> list[dict[str, Any]]:
         with self.get_connection() as conn:
             cursor = conn.cursor()
             sql = "SELECT * FROM products WHERE 1=1"
@@ -308,7 +308,7 @@ class Database:
                 p["tags"] = json.loads(p["tags"]) if p["tags"] else []
             return products
 
-    def get_product_by_slug(self, slug: str) -> Optional[Dict[str, Any]]:
+    def get_product_by_slug(self, slug: str) -> dict[str, Any] | None:
         with self.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM products WHERE slug = ?;", (slug,))
@@ -319,7 +319,7 @@ class Database:
             p["tags"] = json.loads(p["tags"]) if p["tags"] else []
             return p
 
-    def get_release_cycles_for_product(self, product_id: int) -> List[Dict[str, Any]]:
+    def get_release_cycles_for_product(self, product_id: int) -> list[dict[str, Any]]:
         with self.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("""
@@ -342,9 +342,9 @@ class Database:
         version: str,
         release_type: str,
         deployment_env: str,
-        release_date: Optional[str],
-        eoas_date: Optional[str],
-        eol_date: Optional[str],
+        release_date: str | None,
+        eoas_date: str | None,
+        eol_date: str | None,
         lifecycle_phase: str,
         days_to_eol: int,
         risk_level: str,
@@ -384,7 +384,7 @@ class Database:
                 ))
                 return cursor.lastrowid
 
-    def get_all_inventory_items(self) -> List[Dict[str, Any]]:
+    def get_all_inventory_items(self) -> list[dict[str, Any]]:
         with self.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM environment_inventories ORDER BY days_to_eol ASC;")

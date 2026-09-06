@@ -1,15 +1,14 @@
 import json
-import os
-import urllib.request
 import logging
-from typing import List, Dict, Any, Optional
+import os
+
 from db.database import Database
 from services.enterprise_vendors import EnterpriseVendorService
 
 logger = logging.getLogger(__name__)
 
 class MultiSourceService:
-    def __init__(self, db: Optional[Database] = None):
+    def __init__(self, db: Database | None = None):
         self.db = db or Database()
         self.enterprise_svc = EnterpriseVendorService(db=self.db)
 
