@@ -315,7 +315,7 @@ elif nav_choice == "⚙️ Data Ingestion & Management":
 
     cpe_col1, cpe_col2, cpe_col3 = st.columns([2, 2, 2])
     with cpe_col1:
-        target_count = st.number_input("Target Records Count", min_value=10, max_value=5000, value=300, step=50)
+        target_count = st.number_input("Target Records Count", min_value=10, max_value=50000, value=1000, step=250)
     with cpe_col2:
         dedup_products = st.checkbox("Deduplicate (Vendor + Product)", value=True)
     with cpe_col3:
