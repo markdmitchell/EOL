@@ -1,5 +1,14 @@
 [
   {
+    "name": "NIST National Vulnerability Database (NVD) CPE API",
+    "category": "Global Software & Hardware Dictionary (CPE 2.3)",
+    "format": "REST JSON",
+    "url": "https://services.nvd.nist.gov/rest/json/cpes/2.0",
+    "api_available": "Yes",
+    "confidence_score": 1.0,
+    "description": "Official US NIST National Vulnerability Database CPE 2.0 API providing standard identifiers for all commercial and open-source software applications and OSs worldwide."
+  },
+  {
     "name": "endoflife.date API v1",
     "category": "Cross-platform",
     "format": "REST JSON",
