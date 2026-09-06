@@ -595,6 +595,90 @@ class EnterpriseVendorService:
                     {"cycle": "8.12", "release_date": "2024-01-25", "eoas_date": "2026-07-25", "eol_date": "2026-07-25", "is_lts": True, "is_eol": False},
                     {"cycle": "7.17", "release_date": "2022-01-31", "eoas_date": "2025-01-31", "eol_date": "2025-01-31", "is_lts": True, "is_eol": False}
                 ]
+            },
+
+            # ==========================================
+            # NVIDIA & CITRIX ENTERPRISE INFRASTRUCTURE
+            # ==========================================
+            {
+                "slug": "nvidia-ai-enterprise",
+                "name": "NVIDIA AI Enterprise",
+                "label": "NVIDIA AI Enterprise & CUDA Software Suite",
+                "category": "framework",
+                "vendor": "NVIDIA Corporation",
+                "tags": ["nvidia", "cuda", "ai", "gpu", "machine-learning"],
+                "source_name": "Flexera Technopedia Catalog",
+                "source_url": "https://docs.nvidia.com/ai-enterprise/latest/product-support-matrix/index.html",
+                "cycles": [
+                    {"cycle": "5.0", "release_date": "2024-03-15", "eoas_date": "2027-03-15", "eol_date": "2027-03-15", "is_lts": True, "is_eol": False},
+                    {"cycle": "4.0", "release_date": "2023-08-15", "eoas_date": "2026-08-15", "eol_date": "2026-08-15", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "citrix-cvad",
+                "name": "Citrix Virtual Apps and Desktops",
+                "label": "Citrix Virtual Apps & Desktops (CVAD / XenApp)",
+                "category": "server-app",
+                "vendor": "Cloud Software Group / Citrix",
+                "tags": ["citrix", "cvad", "xenapp", "vdi", "virtualization"],
+                "source_name": "Flexera Technopedia Catalog",
+                "source_url": "https://support.citrix.com/article/CTX200466",
+                "cycles": [
+                    {"cycle": "2402 LTSR", "release_date": "2024-02-28", "eoas_date": "2029-02-28", "eol_date": "2034-02-28", "is_lts": True, "is_eol": False},
+                    {"cycle": "2203 LTSR", "release_date": "2022-03-23", "eoas_date": "2027-03-23", "eol_date": "2032-03-23", "is_lts": True, "is_eol": False},
+                    {"cycle": "1912 LTSR", "release_date": "2019-12-18", "eoas_date": "2024-12-18", "eol_date": "2029-12-18", "is_lts": True, "is_eol": False}
+                ]
+            },
+
+            # ==========================================
+            # SPRING & OPEN SOURCE DATABASES
+            # ==========================================
+            {
+                "slug": "spring-boot",
+                "name": "Spring Boot",
+                "label": "Spring Boot Java Framework",
+                "category": "framework",
+                "vendor": "VMware / Broadcom",
+                "tags": ["spring", "springboot", "java", "framework"],
+                "source_name": "HeroDevs NES Documentation",
+                "source_url": "https://spring.io/projects/spring-boot#support",
+                "cycles": [
+                    {"cycle": "3.2", "release_date": "2023-11-23", "eoas_date": "2024-11-23", "eol_date": "2025-11-23", "is_lts": True, "is_eol": False},
+                    {"cycle": "3.1", "release_date": "2023-05-18", "eoas_date": "2024-05-18", "eol_date": "2024-11-18", "is_lts": False, "is_eol": True},
+                    {"cycle": "2.7", "release_date": "2022-05-19", "eoas_date": "2023-11-24", "eol_date": "2025-08-24", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "postgresql",
+                "name": "PostgreSQL Database",
+                "label": "PostgreSQL Relational Database",
+                "category": "database",
+                "vendor": "PostgreSQL Global Development Group",
+                "tags": ["postgresql", "postgres", "sql", "database"],
+                "source_name": "Versio.io Software Lifecycle API",
+                "source_url": "https://www.postgresql.org/support/versioning/",
+                "cycles": [
+                    {"cycle": "16", "release_date": "2023-09-14", "eoas_date": "2028-11-09", "eol_date": "2028-11-09", "is_lts": True, "is_eol": False},
+                    {"cycle": "15", "release_date": "2022-10-13", "eoas_date": "2027-11-11", "eol_date": "2027-11-11", "is_lts": True, "is_eol": False},
+                    {"cycle": "14", "release_date": "2021-09-30", "eoas_date": "2026-11-12", "eol_date": "2026-11-12", "is_lts": True, "is_eol": False},
+                    {"cycle": "13", "release_date": "2020-09-24", "eoas_date": "2025-11-13", "eol_date": "2025-11-13", "is_lts": True, "is_eol": False},
+                    {"cycle": "12", "release_date": "2019-10-03", "eoas_date": "2024-11-14", "eol_date": "2024-11-14", "is_lts": True, "is_eol": True}
+                ]
+            },
+            {
+                "slug": "mysql",
+                "name": "MySQL Server",
+                "label": "Oracle MySQL Database Server",
+                "category": "database",
+                "vendor": "Oracle Corporation",
+                "tags": ["mysql", "oracle", "sql", "database"],
+                "source_name": "Oracle Lifetime Support Policy",
+                "source_url": "https://www.oracle.com/support/lifetime-support/software.html",
+                "cycles": [
+                    {"cycle": "8.4 LTS", "release_date": "2024-04-30", "eoas_date": "2029-04-30", "eol_date": "2032-04-30", "is_lts": True, "is_eol": False},
+                    {"cycle": "8.0", "release_date": "2018-04-19", "eoas_date": "2023-04-30", "eol_date": "2026-04-30", "is_lts": True, "is_eol": False},
+                    {"cycle": "5.7", "release_date": "2013-10-23", "eoas_date": "2018-10-31", "eol_date": "2023-10-31", "is_lts": True, "is_eol": True}
+                ]
             }
         ]
 
