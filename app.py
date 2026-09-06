@@ -284,6 +284,12 @@ elif nav_choice == "⚙️ Data Ingestion & Management":
                 st.success(f"Successfully ingested {cnt} enterprise software product suites!")
 
         st.divider()
+        if st.button("⚡ Full GitHub & REST API Bulk Sync (473+ Products & 8,600+ Cycles)"):
+            with st.spinner("Executing full bulk batch sync across all 473+ products and 8,600+ release cycles..."):
+                prods, cycles = sync_svc.sync_all_products_bulk()
+                st.success(f"Successfully bulk synced {prods} products and {cycles} release cycles with full provenance tracking!")
+
+        st.divider()
         sync_single = st.text_input("Sync Specific Product Slug (e.g. 'python', 'ubuntu', 'kubernetes')", "kubernetes")
         if st.button("Sync Single Product from REST API"):
             with st.spinner(f"Fetching '{sync_single}'..."):
