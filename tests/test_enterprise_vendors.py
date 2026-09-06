@@ -10,7 +10,7 @@ from services.search import SearchService
 class TestEnterpriseVendors(unittest.TestCase):
 
     def setUp(self):
-        self.tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".db")
+        self.tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".db")  # noqa: SIM115
         self.tmp_file.close()
         self.db = Database(db_path=self.tmp_file.name)
         self.ent_svc = EnterpriseVendorService(db=self.db)

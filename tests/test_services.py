@@ -10,7 +10,7 @@ from services.search import SearchService
 class TestDatabaseAndServices(unittest.TestCase):
 
     def setUp(self):
-        self.tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".db")
+        self.tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".db")  # noqa: SIM115
         self.tmp_file.close()
         self.db = Database(db_path=self.tmp_file.name)
         self.search_svc = SearchService(db=self.db)

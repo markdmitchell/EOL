@@ -6,6 +6,7 @@ from db.database import Database
 from services.csv_importer import CSVImporter
 from services.enterprise_vendors import EnterpriseVendorService
 from services.multi_source import MultiSourceService
+from services.nvd_cpe import fetch_cpe_catalog, ingest_nvd_cpe_into_db
 from services.search import SearchService
 from services.sync import SyncService
 
@@ -301,6 +302,29 @@ elif nav_choice == "⚙️ Data Ingestion & Management":
             with st.spinner("Processing CSV and calculating dynamic EOL risk metrics..."):
                 count = csv_imp.import_inventory_csv(uploaded_csv, source_name="Uploaded Enterprise CSV")
                 st.success(f"Successfully imported {count} inventory records!")
+
+    st.divider()
+    st.subheader("🛡️ NIST NVD CPE 2.0 API Extractor & Database Ingestion")
+    st.markdown("Extract and parse enterprise software and OS catalog entries directly from the **NIST National Vulnerability Database (NVD) CPE 2.0 API** with full CPE 2.3 URI decomposition.")
+
+    cpe_col1, cpe_col2, cpe_col3 = st.columns([2, 2, 2])
+    with cpe_col1:
+        target_count = st.number_input("Target Records Count", min_value=10, max_value=5000, value=300, step=50)
+    with cpe_col2:
+        dedup_products = st.checkbox("Deduplicate (Vendor + Product)", value=True)
+    with cpe_col3:
+        api_key_input = st.text_input("NVD API Key (Optional)", type="password", help="Increases rate limit threshold from 5 to 50 req/30s")
+
+    if st.button("Extract & Ingest NVD CPE Catalog"):
+        with st.spinner(f"Paginating NIST NVD CPE 2.0 API for {target_count} records..."):
+            key_val = api_key_input.strip() if api_key_input else None
+            records = fetch_cpe_catalog(
+                target_count=int(target_count),
+                deduplicate_products=dedup_products,
+                api_key=key_val
+            )
+            count = ingest_nvd_cpe_into_db(db=db, records=records)
+            st.success(f"Successfully extracted {len(records)} CPE records and ingested {count} products into database with NIST provenance links!")
 
     st.divider()
     st.subheader("➕ Register Custom Niche Software EOL Record")

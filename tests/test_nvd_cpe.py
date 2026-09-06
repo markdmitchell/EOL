@@ -1,13 +1,15 @@
-import unittest
 import os
 import tempfile
+import unittest
+
 from db.database import Database
-from services.nvd_cpe import parse_cpe_23, ingest_nvd_cpe_into_db
+from services.nvd_cpe import ingest_nvd_cpe_into_db, parse_cpe_23
+
 
 class TestNVDCPE(unittest.TestCase):
 
     def setUp(self):
-        self.tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".db")
+        self.tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".db")  # noqa: SIM115
         self.tmp_file.close()
         self.db = Database(db_path=self.tmp_file.name)
 

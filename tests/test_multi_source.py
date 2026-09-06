@@ -9,7 +9,7 @@ from services.multi_source import MultiSourceService
 class TestMultiSourceIntegration(unittest.TestCase):
 
     def setUp(self):
-        self.tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".db")
+        self.tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".db")  # noqa: SIM115
         self.tmp_file.close()
         self.db = Database(db_path=self.tmp_file.name)
         self.ms_svc = MultiSourceService(db=self.db)

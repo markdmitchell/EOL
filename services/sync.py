@@ -76,7 +76,7 @@ class SyncService:
 
             return True
 
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             logger.error(f"Error syncing product {product_slug}: {e}")
             return False
 

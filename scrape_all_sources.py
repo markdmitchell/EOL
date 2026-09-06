@@ -56,7 +56,7 @@ def scrape_xeol_listing(db: Database) -> int:
                         count += 1
             logger.info(f"Successfully processed {count} records from xeol.io.")
             return count
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         logger.warning(f"Could not scrape xeol.io listing ({e}). Fallback to offline registry.")
         return 0
 

@@ -1,9 +1,10 @@
 import csv
 import json
+import logging
 import re
 import time
-import logging
-from typing import Any, Dict, List, Optional
+from typing import Any
+
 import requests
 
 from db.database import Database
@@ -14,9 +15,9 @@ BASE_URL = "https://services.nvd.nist.gov/rest/json/cpes/2.0"
 
 # Set your API key if available (increases rate limit from 5 to 50 req/30s)
 # Request a free key at: https://nvd.nist.gov/developers/request-an-api-key
-API_KEY: Optional[str] = None
+API_KEY: str | None = None
 
-def parse_cpe_23(cpe_uri: str) -> Optional[Dict[str, str]]:
+def parse_cpe_23(cpe_uri: str) -> dict[str, str] | None:
     """Parses a CPE 2.3 URI string into standardized components.
 
     Format: cpe:2.3:part:vendor:product:version:update:edition:language:...
@@ -42,7 +43,7 @@ def parse_cpe_23(cpe_uri: str) -> Optional[Dict[str, str]]:
         "raw_cpe": cpe_uri,
     }
 
-def extract_english_title(titles: List[Dict[str, str]]) -> str:
+def extract_english_title(titles: list[dict[str, str]]) -> str:
     """Extracts the English human-readable title from CPE metadata."""
     for item in titles:
         if item.get("lang") == "en":
@@ -53,20 +54,22 @@ def fetch_cpe_catalog(
     target_count: int = 500,
     deduplicate_products: bool = True,
     output_prefix: str = "enterprise_software_catalog",
-) -> List[Dict[str, Any]]:
+    api_key: str | None = None,
+) -> list[dict[str, Any]]:
     """Paginates the NVD API, extracts software/OS records, and saves to disk."""
+    effective_api_key = api_key or API_KEY
     headers = {"User-Agent": "CPE-Catalog-Extractor/1.0"}
-    if API_KEY:
-        headers["apiKey"] = API_KEY
+    if effective_api_key:
+        headers["apiKey"] = effective_api_key
 
     # NIST allows up to 2,000 records per request
     page_size = min(target_count, 2000)
     start_index = 0
-    records: List[Dict[str, Any]] = []
+    records: list[dict[str, Any]] = []
     seen_products = set()
 
-    # Rate pacing: 6s without key, 0.6s with key
-    sleep_interval = 0.6 if API_KEY else 1.0
+    # Rate pacing: 0.6s with key, 1.0s without key
+    sleep_interval = 0.6 if effective_api_key else 1.0
 
     logger.info(f"Starting NVD CPE extraction. Target: {target_count} software/OS records...")
 
@@ -156,12 +159,12 @@ def fetch_cpe_catalog(
         logger.info(
             f"Export complete: {len(records)} entries saved to '{csv_file}' and '{json_file}'."
         )
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         logger.warning(f"File save warning: {e}")
 
     return records
 
-def ingest_nvd_cpe_into_db(db: Optional[Database] = None, records: Optional[List[Dict[str, Any]]] = None) -> int:
+def ingest_nvd_cpe_into_db(db: Database | None = None, records: list[dict[str, Any]] | None = None) -> int:
     """
     Ingests NVD CPE software records into the SQLite database with provenance links.
     """
