@@ -323,21 +323,182 @@ class EnterpriseVendorService:
                     {"cycle": "Tokyo", "release_date": "2022-09-21", "eoas_date": "2024-03-31", "eol_date": "2024-03-31", "is_lts": False, "is_eol": True}
                 ]
             },
+            # ==========================================
+            # VMWARE / BROADCOM VIRTUALIZATION
+            # ==========================================
             {
-                "slug": "splunk",
-                "name": "Splunk Enterprise",
-                "label": "Splunk Enterprise Platform",
-                "category": "server-app",
-                "vendor": "Splunk / Cisco",
-                "tags": ["splunk", "siem", "logs", "analytics", "security"],
-                "source_name": "Splunk Product Support Policy",
-                "source_url": "https://www.splunk.com/en_us/legal/splunk-software-support-policy.html",
+                "slug": "vmware-esxi",
+                "name": "VMware ESXi",
+                "label": "VMware ESXi Hypervisor / vSphere",
+                "category": "os",
+                "vendor": "Broadcom / VMware",
+                "tags": ["vmware", "esxi", "vsphere", "hypervisor", "virtualization"],
+                "source_name": "VMware End of Life Matrix",
+                "source_url": "https://www.vmwaremigrationhub.com/guides/vmware-end-of-life",
                 "cycles": [
-                    {"cycle": "9.3", "release_date": "2024-06-11", "eoas_date": "2026-06-11", "eol_date": "2027-06-11", "is_lts": True, "is_eol": False},
-                    {"cycle": "9.2", "release_date": "2024-02-14", "eoas_date": "2026-02-14", "eol_date": "2027-02-14", "is_lts": True, "is_eol": False},
-                    {"cycle": "9.1", "release_date": "2023-06-06", "eoas_date": "2025-06-06", "eol_date": "2026-06-06", "is_lts": True, "is_eol": False},
-                    {"cycle": "9.0", "release_date": "2022-06-14", "eoas_date": "2024-06-14", "eol_date": "2025-06-14", "is_lts": True, "is_eol": False},
-                    {"cycle": "8.2", "release_date": "2021-05-18", "eoas_date": "2023-05-18", "eol_date": "2024-05-18", "is_lts": True, "is_eol": True}
+                    {"cycle": "8.0", "release_date": "2022-10-11", "eoas_date": "2027-10-11", "eol_date": "2029-10-11", "is_lts": True, "is_eol": False},
+                    {"cycle": "7.0", "release_date": "2020-04-02", "eoas_date": "2025-04-02", "eol_date": "2027-04-02", "is_lts": True, "is_eol": False},
+                    {"cycle": "6.7", "release_date": "2018-04-17", "eoas_date": "2022-10-15", "eol_date": "2023-11-15", "is_lts": True, "is_eol": True}
+                ]
+            },
+            {
+                "slug": "vmware-vcenter",
+                "name": "VMware vCenter Server",
+                "label": "VMware vCenter Server Platform",
+                "category": "server-app",
+                "vendor": "Broadcom / VMware",
+                "tags": ["vmware", "vcenter", "vsphere", "management"],
+                "source_name": "VMware End of Life Matrix",
+                "source_url": "https://www.vmwaremigrationhub.com/guides/vmware-end-of-life",
+                "cycles": [
+                    {"cycle": "8.0", "release_date": "2022-10-11", "eoas_date": "2027-10-11", "eol_date": "2029-10-11", "is_lts": True, "is_eol": False},
+                    {"cycle": "7.0", "release_date": "2020-04-02", "eoas_date": "2025-04-02", "eol_date": "2027-04-02", "is_lts": True, "is_eol": False}
+                ]
+            },
+
+            # ==========================================
+            # CISCO NETWORKING & SECURITY
+            # ==========================================
+            {
+                "slug": "cisco-ios",
+                "name": "Cisco IOS Classic",
+                "label": "Cisco IOS Network Operating System",
+                "category": "os",
+                "vendor": "Cisco Systems",
+                "tags": ["cisco", "ios", "networking", "router", "switch"],
+                "source_name": "Cisco Product Lifecycle & EOL Policy",
+                "source_url": "https://www.cisco.com/c/en/us/products/eos-eol-policy.html",
+                "cycles": [
+                    {"cycle": "15.9", "release_date": "2019-03-29", "eoas_date": "2024-07-31", "eol_date": "2026-07-31", "is_lts": True, "is_eol": False},
+                    {"cycle": "15.6", "release_date": "2015-12-18", "eoas_date": "2020-11-30", "eol_date": "2022-11-30", "is_lts": True, "is_eol": True}
+                ]
+            },
+            {
+                "slug": "cisco-nx-os",
+                "name": "Cisco NX-OS",
+                "label": "Cisco NX-OS Data Center Switch OS",
+                "category": "os",
+                "vendor": "Cisco Systems",
+                "tags": ["cisco", "nx-os", "nexus", "datacenter", "networking"],
+                "source_name": "Cisco Product Lifecycle & EOL Policy",
+                "source_url": "https://www.cisco.com/c/en/us/products/eos-eol-policy.html",
+                "cycles": [
+                    {"cycle": "10.3", "release_date": "2022-08-30", "eoas_date": "2025-08-30", "eol_date": "2027-08-30", "is_lts": True, "is_eol": False},
+                    {"cycle": "9.3", "release_date": "2019-07-19", "eoas_date": "2023-07-31", "eol_date": "2025-07-31", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "cisco-asa",
+                "name": "Cisco ASA Software",
+                "label": "Cisco ASA Adaptive Security Appliance Software",
+                "category": "os",
+                "vendor": "Cisco Systems",
+                "tags": ["cisco", "asa", "firewall", "security"],
+                "source_name": "Cisco Product Lifecycle & EOL Policy",
+                "source_url": "https://www.cisco.com/c/en/us/products/eos-eol-policy.html",
+                "cycles": [
+                    {"cycle": "9.18", "release_date": "2022-05-30", "eoas_date": "2025-05-30", "eol_date": "2027-05-30", "is_lts": True, "is_eol": False},
+                    {"cycle": "9.16", "release_date": "2021-05-17", "eoas_date": "2024-05-31", "eol_date": "2026-05-31", "is_lts": True, "is_eol": False}
+                ]
+            },
+
+            # ==========================================
+            # RED HAT ENTERPRISE SUITE
+            # ==========================================
+            {
+                "slug": "openshift",
+                "name": "Red Hat OpenShift",
+                "label": "Red Hat OpenShift Container Platform (OCP)",
+                "category": "server-app",
+                "vendor": "Red Hat, Inc.",
+                "tags": ["redhat", "openshift", "kubernetes", "containers", "cloud"],
+                "source_name": "Red Hat Customer Portal (access.redhat.com)",
+                "source_url": "https://access.redhat.com/support/policy/updates/openshift",
+                "cycles": [
+                    {"cycle": "4.16", "release_date": "2024-06-25", "eoas_date": "2025-12-25", "eol_date": "2026-06-25", "is_lts": True, "is_eol": False},
+                    {"cycle": "4.14", "release_date": "2023-10-31", "eoas_date": "2025-04-30", "eol_date": "2025-10-31", "is_lts": True, "is_eol": False},
+                    {"cycle": "4.12", "release_date": "2023-01-17", "eoas_date": "2024-07-17", "eol_date": "2025-01-17", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "ansible-automation-platform",
+                "name": "Red Hat Ansible Automation Platform",
+                "label": "Red Hat Ansible Automation Platform (AAP)",
+                "category": "server-app",
+                "vendor": "Red Hat, Inc.",
+                "tags": ["redhat", "ansible", "automation", "devops"],
+                "source_name": "Red Hat Customer Portal (access.redhat.com)",
+                "source_url": "https://access.redhat.com/support/policy/updates/ansible-automation-platform",
+                "cycles": [
+                    {"cycle": "2.4", "release_date": "2023-06-27", "eoas_date": "2025-06-27", "eol_date": "2026-06-27", "is_lts": True, "is_eol": False},
+                    {"cycle": "2.3", "release_date": "2022-11-29", "eoas_date": "2024-11-29", "eol_date": "2025-11-29", "is_lts": True, "is_eol": False}
+                ]
+            },
+
+            # ==========================================
+            # MICROSOFT ENTERPRISE SUITE
+            # ==========================================
+            {
+                "slug": "exchange-server",
+                "name": "Microsoft Exchange Server",
+                "label": "Microsoft Exchange Server",
+                "category": "server-app",
+                "vendor": "Microsoft Corporation",
+                "tags": ["microsoft", "exchange", "email", "server"],
+                "source_name": "Microsoft Support & Lifecycle Portal",
+                "source_url": "https://support.microsoft.com/en-us/lifecycle/search",
+                "cycles": [
+                    {"cycle": "Subscription Edition", "release_date": "2025-07-01", "eoas_date": "2030-10-14", "eol_date": "2035-10-14", "is_lts": True, "is_eol": False},
+                    {"cycle": "2019", "release_date": "2018-10-22", "eoas_date": "2025-10-14", "eol_date": "2025-10-14", "is_lts": True, "is_eol": False},
+                    {"cycle": "2016", "release_date": "2015-10-01", "eoas_date": "2020-10-13", "eol_date": "2025-10-14", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "sharepoint-server",
+                "name": "Microsoft SharePoint Server",
+                "label": "Microsoft SharePoint Server",
+                "category": "server-app",
+                "vendor": "Microsoft Corporation",
+                "tags": ["microsoft", "sharepoint", "intranet", "collaboration"],
+                "source_name": "Microsoft Support & Lifecycle Portal",
+                "source_url": "https://support.microsoft.com/en-us/lifecycle/search",
+                "cycles": [
+                    {"cycle": "Subscription Edition", "release_date": "2021-11-02", "eoas_date": "2026-07-14", "eol_date": "2031-07-14", "is_lts": True, "is_eol": False},
+                    {"cycle": "2019", "release_date": "2018-10-22", "eoas_date": "2023-01-10", "eol_date": "2026-07-14", "is_lts": True, "is_eol": False},
+                    {"cycle": "2016", "release_date": "2016-03-14", "eoas_date": "2021-07-13", "eol_date": "2026-07-14", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "windows-11-enterprise",
+                "name": "Windows 11 Enterprise",
+                "label": "Microsoft Windows 11 Enterprise Edition",
+                "category": "os",
+                "vendor": "Microsoft Corporation",
+                "tags": ["microsoft", "windows", "windows11", "enterprise", "os"],
+                "source_name": "Microsoft Support & Lifecycle Portal",
+                "source_url": "https://learn.microsoft.com/en-us/lifecycle/products/windows-11-enterprise-and-education",
+                "cycles": [
+                    {"cycle": "24H2", "release_date": "2024-10-01", "eoas_date": "2027-10-12", "eol_date": "2027-10-12", "is_lts": True, "is_eol": False},
+                    {"cycle": "23H2", "release_date": "2023-10-31", "eoas_date": "2026-11-10", "eol_date": "2026-11-10", "is_lts": True, "is_eol": False},
+                    {"cycle": "22H2", "release_date": "2022-09-20", "eoas_date": "2025-10-14", "eol_date": "2025-10-14", "is_lts": True, "is_eol": False}
+                ]
+            },
+
+            # ==========================================
+            # HASHICORP INFRASTRUCTURE SUITE
+            # ==========================================
+            {
+                "slug": "hashicorp-vault",
+                "name": "HashiCorp Vault",
+                "label": "HashiCorp Vault Security Platform",
+                "category": "server-app",
+                "vendor": "HashiCorp",
+                "tags": ["hashicorp", "vault", "secrets", "security", "cloud"],
+                "source_name": "Flexera Technopedia Catalog",
+                "source_url": "https://developer.hashicorp.com/vault/docs/upgrading/support-maintenance-policy",
+                "cycles": [
+                    {"cycle": "1.16", "release_date": "2024-03-19", "eoas_date": "2026-03-19", "eol_date": "2026-03-19", "is_lts": True, "is_eol": False},
+                    {"cycle": "1.15", "release_date": "2023-10-03", "eoas_date": "2025-10-03", "eol_date": "2025-10-03", "is_lts": True, "is_eol": False}
                 ]
             }
         ]
