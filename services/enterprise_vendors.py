@@ -942,6 +942,81 @@ class EnterpriseVendorService:
                     {"cycle": "7.0", "release_date": "2021-12-15", "eoas_date": "2023-10-05", "eol_date": "2025-04-05", "is_lts": True, "is_eol": False},
                     {"cycle": "6.1", "release_date": "2020-12-09", "eoas_date": "2022-12-09", "eol_date": "2024-10-01", "is_lts": True, "is_eol": True}
                 ]
+            },
+
+            # ==========================================
+            # POPULAR DESKTOP & ENDPOINT UTILITIES (7-ZIP, WINRAR, WINZIP, FILEZILLA, PUTTY)
+            # ==========================================
+            {
+                "slug": "7-zip",
+                "name": "7-Zip",
+                "label": "7-Zip File Archiver Utility",
+                "category": "niche-app",
+                "vendor": "Igor Pavlov",
+                "tags": ["7zip", "archiver", "utility", "windows", "desktop"],
+                "source_name": "NIST National Vulnerability Database (NVD) CPE API",
+                "source_url": "https://www.7-zip.org/",
+                "cycles": [
+                    {"cycle": "24.x", "release_date": "2024-06-20", "eoas_date": "2026-06-20", "eol_date": "2027-06-20", "is_lts": True, "is_eol": False},
+                    {"cycle": "23.x", "release_date": "2023-05-07", "eoas_date": "2025-05-07", "eol_date": "2026-05-07", "is_lts": True, "is_eol": False},
+                    {"cycle": "22.x", "release_date": "2022-06-15", "eoas_date": "2024-06-15", "eol_date": "2025-06-15", "is_lts": True, "is_eol": True}
+                ]
+            },
+            {
+                "slug": "winrar",
+                "name": "WinRAR",
+                "label": "RARLAB WinRAR Archiver",
+                "category": "niche-app",
+                "vendor": "RARLAB",
+                "tags": ["winrar", "rarlab", "archiver", "utility", "desktop"],
+                "source_name": "NIST National Vulnerability Database (NVD) CPE API",
+                "source_url": "https://www.rarlab.com/",
+                "cycles": [
+                    {"cycle": "7.0x", "release_date": "2024-02-28", "eoas_date": "2026-02-28", "eol_date": "2027-02-28", "is_lts": True, "is_eol": False},
+                    {"cycle": "6.2x", "release_date": "2023-01-15", "eoas_date": "2025-01-15", "eol_date": "2026-01-15", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "winzip",
+                "name": "WinZip",
+                "label": "WinZip File Utility",
+                "category": "niche-app",
+                "vendor": "Corel / Alludo",
+                "tags": ["winzip", "corel", "archiver", "utility", "desktop"],
+                "source_name": "NIST National Vulnerability Database (NVD) CPE API",
+                "source_url": "https://www.winzip.com/",
+                "cycles": [
+                    {"cycle": "28.0", "release_date": "2023-08-22", "eoas_date": "2025-08-22", "eol_date": "2026-08-22", "is_lts": True, "is_eol": False},
+                    {"cycle": "27.0", "release_date": "2022-08-23", "eoas_date": "2024-08-23", "eol_date": "2025-08-23", "is_lts": True, "is_eol": True}
+                ]
+            },
+            {
+                "slug": "filezilla",
+                "name": "FileZilla Client",
+                "label": "FileZilla FTP/SFTP Client",
+                "category": "niche-app",
+                "vendor": "Tim Kosse",
+                "tags": ["filezilla", "ftp", "sftp", "client", "utility"],
+                "source_name": "Flexera Technopedia Catalog",
+                "source_url": "https://filezilla-project.org/",
+                "cycles": [
+                    {"cycle": "3.67", "release_date": "2024-04-10", "eoas_date": "2025-04-10", "eol_date": "2026-04-10", "is_lts": True, "is_eol": False},
+                    {"cycle": "3.66", "release_date": "2023-12-01", "eoas_date": "2024-12-01", "eol_date": "2025-12-01", "is_lts": False, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "putty",
+                "name": "PuTTY",
+                "label": "PuTTY SSH & Telnet Client",
+                "category": "niche-app",
+                "vendor": "Simon Tatham",
+                "tags": ["putty", "ssh", "terminal", "client", "utility"],
+                "source_name": "Flexera Technopedia Catalog",
+                "source_url": "https://www.chiark.greenend.org.uk/~sgtatham/putty/",
+                "cycles": [
+                    {"cycle": "0.81", "release_date": "2024-04-15", "eoas_date": "2026-04-15", "eol_date": "2027-04-15", "is_lts": True, "is_eol": False},
+                    {"cycle": "0.80", "release_date": "2023-12-18", "eoas_date": "2025-12-18", "eol_date": "2026-12-18", "is_lts": True, "is_eol": False}
+                ]
             }
         ]
 
