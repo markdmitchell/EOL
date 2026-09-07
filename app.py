@@ -57,35 +57,57 @@ st.sidebar.info(
 # ==========================================
 if nav_choice == "🔍 Searchable Product Catalog":
     st.title("🔍 Searchable Enterprise Software EOL/EOS Catalog")
-    st.markdown("Search support lifecycles, EOL/EOS dates, and release cycles across **Jira, OpenText, Micro Focus, IBM DB2, SAP S/4HANA, Cisco, ServiceNow, Splunk**, OSs, Languages, and Databases.")
+    st.markdown("Search support lifecycles, EOL/EOS dates, and release cycles across **3,000+ software products**, enterprise suites, utilities, OSs, languages, and databases.")
+
+    available_categories = ["All Categories"] + search_svc.get_distinct_categories()
+    available_vendors = ["All Vendors"] + search_svc.get_distinct_vendors()
 
     col1, col2, col3, col4 = st.columns([3, 1.5, 1.5, 1.5])
     with col1:
-        query_input = st.text_input("Search Product (e.g. Jira, OpenText, ALM, Vertica, WebSphere, SAP, Cisco, Python)", "")
+        query_input = st.text_input("Search Product (e.g. 7-Zip, WinRAR, Jira, OpenText, Python, Cisco, Windows)", "")
     with col2:
-        category_filter = st.selectbox("Category Filter", ["All Categories", "lang", "os", "framework", "database", "server-app"])
+        category_filter = st.selectbox("Category Filter", available_categories)
     with col3:
-        vendor_filter = st.selectbox("Vendor Filter", ["All Vendors", "Atlassian", "OpenText / Micro Focus", "IBM Corporation", "SAP SE", "Cisco Systems", "ServiceNow, Inc.", "Splunk / Cisco", "Microsoft Corporation", "Red Hat, Inc.", "Canonical", "Oracle Corporation", "Google"])
+        vendor_filter = st.selectbox("Vendor Filter", available_vendors)
     with col4:
         eol_only = st.checkbox("Only Show EOL Products/Cycles", value=False)
 
     cat_val = "" if category_filter == "All Categories" else category_filter
-    results = search_svc.search_catalog(query=query_input, category=cat_val, eol_only=eol_only)
+    ven_val = "" if vendor_filter == "All Vendors" else vendor_filter
 
-    if vendor_filter != "All Vendors":
-        results = [r for r in results if r["product"].get("vendor") == vendor_filter]
+    all_results = search_svc.search_catalog(
+        query=query_input,
+        category=cat_val,
+        vendor=ven_val,
+        eol_only=eol_only
+    )
 
-    st.write(f"Showing **{len(results)}** matching enterprise products from database:")
+    total_results = len(all_results)
 
-    if not results:
-        st.warning("No products found matching your search criteria. Try syncing more products from the 'Data Ingestion & Management' tab.")
+    # UI Pagination controls for ultra-fast rendering
+    p_col1, p_col2 = st.columns([2, 2])
+    with p_col1:
+        page_size = st.selectbox("Products per page", [10, 25, 50, 100], index=1)
+    with p_col2:
+        total_pages = max(1, (total_results + page_size - 1) // page_size)
+        current_page = st.number_input("Page", min_value=1, max_value=total_pages, value=1, step=1)
+
+    start_idx = (current_page - 1) * page_size
+    end_idx = min(start_idx + page_size, total_results)
+    page_results = all_results[start_idx:end_idx]
+
+    if total_results == 0:
+        st.warning("No products found matching your search criteria.")
+        st.info("💡 **Tips**: Try broadening your search query, selecting 'All Vendors' / 'All Categories', or sync missing products in the 'Data Ingestion & Management' tab.")
     else:
-        for item in results:
+        st.success(f"Found **{total_results}** matching enterprise products. Showing items **{start_idx + 1} - {end_idx}** (Page {current_page} of {total_pages}):")
+
+        for item in page_results:
             product = item["product"]
             cycles = item["release_cycles"]
             provenance = item["provenance"]
 
-            with st.expander(f"📦 **{product['label']}** ({product['slug']}) — Vendor: `{product.get('vendor') or 'N/A'}` | Category: `{product['category'] or 'N/A'}`", expanded=(len(results) == 1)):
+            with st.expander(f"📦 **{product['label']}** ({product['slug']}) — Vendor: `{product.get('vendor') or 'N/A'}` | Category: `{product['category'] or 'N/A'}`", expanded=(total_results == 1)):
                 col_a, col_b = st.columns([3, 1])
                 with col_a:
                     st.write(f"**Vendor:** {product.get('vendor') or 'N/A'}")

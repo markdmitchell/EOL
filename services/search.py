@@ -11,14 +11,24 @@ class SearchService:
         self,
         query: str = "",
         category: str = "",
+        vendor: str = "",
         tag: str = "",
         eol_only: bool = False,
-        lts_only: bool = False
+        lts_only: bool = False,
+        limit: int | None = None,
+        offset: int = 0
     ) -> list[dict[str, Any]]:
         """
         Search products and retrieve their release cycles, multi-source provenance, and collision flags.
         """
-        products = self.db.search_products(query=query, category=category, tag=tag)
+        products = self.db.search_products(
+            query=query,
+            category=category,
+            vendor=vendor,
+            tag=tag,
+            limit=limit,
+            offset=offset
+        )
         results = []
 
         for p in products:
@@ -37,6 +47,9 @@ class SearchService:
                 c["has_collision"] = self._detect_date_collisions(cycle_prov)
                 filtered_cycles.append(c)
 
+            if eol_only and not filtered_cycles:
+                continue
+
             p_prov = self.db.get_provenance("product", p["id"])
 
             results.append({
@@ -46,6 +59,12 @@ class SearchService:
             })
 
         return results
+
+    def get_distinct_vendors(self) -> list[str]:
+        return self.db.get_distinct_vendors()
+
+    def get_distinct_categories(self) -> list[str]:
+        return self.db.get_distinct_categories()
 
     def _detect_date_collisions(self, prov_records: list[dict[str, Any]]) -> bool:
         """

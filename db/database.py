@@ -282,26 +282,65 @@ class Database:
             """, (entity_type, entity_id))
             return [dict(row) for row in cursor.fetchall()]
 
-    def search_products(self, query: str = "", category: str = "", tag: str = "") -> list[dict[str, Any]]:
+    def get_distinct_vendors(self) -> list[str]:
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT DISTINCT vendor FROM products WHERE vendor IS NOT NULL AND vendor != '' ORDER BY vendor ASC;")
+            return [row["vendor"] for row in cursor.fetchall()]
+
+    def get_distinct_categories(self) -> list[str]:
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT DISTINCT category FROM products WHERE category IS NOT NULL AND category != '' ORDER BY category ASC;")
+            return [row["category"] for row in cursor.fetchall()]
+
+    def search_products(
+        self,
+        query: str = "",
+        category: str = "",
+        vendor: str = "",
+        tag: str = "",
+        limit: int | None = None,
+        offset: int = 0
+    ) -> list[dict[str, Any]]:
         with self.get_connection() as conn:
             cursor = conn.cursor()
             sql = "SELECT * FROM products WHERE 1=1"
-            params = []
+            params: list[Any] = []
 
             if query:
-                sql += " AND (name LIKE ? OR label LIKE ? OR slug LIKE ? OR vendor LIKE ?)"
-                q_like = f"%{query}%"
-                params.extend([q_like, q_like, q_like, q_like])
+                clean_q = query.strip()
+                q_like = f"%{clean_q}%"
+                # Strip hyphens/spaces for normalized matching (e.g., '7zip' matching '7-zip')
+                q_norm = clean_q.replace("-", "").replace(" ", "").replace("_", "")
+                q_norm_like = f"%{q_norm}%"
+
+                sql += """ AND (
+                    name LIKE ? OR label LIKE ? OR slug LIKE ? OR vendor LIKE ?
+                    OR REPLACE(REPLACE(REPLACE(slug, '-', ''), ' ', ''), '_', '') LIKE ?
+                    OR REPLACE(REPLACE(REPLACE(name, '-', ''), ' ', ''), '_', '') LIKE ?
+                )"""
+                params.extend([q_like, q_like, q_like, q_like, q_norm_like, q_norm_like])
 
             if category:
                 sql += " AND category = ?"
                 params.append(category)
 
+            if vendor:
+                sql += " AND (vendor = ? OR vendor LIKE ?)"
+                params.extend([vendor, f"%{vendor}%"])
+
             if tag:
                 sql += " AND tags LIKE ?"
                 params.append(f"%{tag}%")
 
-            sql += " ORDER BY label ASC;"
+            sql += " ORDER BY label ASC"
+
+            if limit is not None and limit > 0:
+                sql += " LIMIT ? OFFSET ?"
+                params.extend([limit, offset])
+
+            sql += ";"
             cursor.execute(sql, params)
             products = [dict(row) for row in cursor.fetchall()]
             for p in products:
