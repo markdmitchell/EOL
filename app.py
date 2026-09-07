@@ -80,13 +80,6 @@ nav_choice = st.sidebar.radio(
     ]
 )
 
-st.sidebar.divider()
-st.sidebar.info(
-    "**Enterprise Software & Provenance Guaranteed**\n"
-    "Includes Atlassian (Jira, Confluence), OpenText / Micro Focus (ALM, Content Suite, Vertica), IBM, SAP, Cisco, ServiceNow, Splunk, Microsoft, Canonical, Red Hat, Oracle."
-)
-
-
 # ==========================================
 # TAB 1: Searchable Product Catalog
 # ==========================================
@@ -116,7 +109,14 @@ if nav_choice == "🔍 Searchable Product Catalog":
     is_active_search = has_search_term or has_category or has_vendor or eol_only
 
     if not is_active_search:
-        st.info("💡 **Type a software or OS product name above to search EOL/EOS dates.**")
+        st.markdown(
+            """
+            <div style="display: inline-block; width: fit-content; background-color: #f0f7ff; color: #1e40af; border: 1px solid #bfdbfe; border-left: 4px solid #3b82f6; padding: 10px 16px; border-radius: 6px; margin: 8px 0 12px 0; font-size: 0.95rem;">
+                💡 <strong>Type a software or OS product name above to search EOL/EOS dates.</strong>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         st.caption("ℹ️ *Database contains 3,006 products, 8,734 release cycles, and 30,136 provenance records.*")
     else:
         cat_val = "" if category_filter == "All Categories" else category_filter
