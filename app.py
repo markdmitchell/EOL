@@ -97,9 +97,6 @@ if nav_choice == "🔍 Searchable Product Catalog":
     available_categories = ["All Categories"] + fetch_distinct_categories(db, search_svc)
     available_vendors = ["All Vendors"] + fetch_distinct_vendors(db, search_svc)
 
-    if st.session_state.get("search_query_val"):
-        st.session_state["catalog_query_input"] = st.session_state.pop("search_query_val")
-
     col1, col2, col3, col4 = st.columns([3, 1.5, 1.5, 1.5])
     with col1:
         query_input = st.text_input(
@@ -120,17 +117,6 @@ if nav_choice == "🔍 Searchable Product Catalog":
 
     if not is_active_search:
         st.info("💡 **Type a software or OS product name above to search EOL/EOS dates.**")
-        st.write("Or click one of the popular search examples below:")
-
-        ex_cols = st.columns(6)
-        examples = ["7-Zip", "WinRAR", "Jira", "Python", "Cisco", "Windows"]
-        for idx, ex in enumerate(examples):
-            with ex_cols[idx]:
-                if st.button(f"🔍 {ex}", key=f"quick_btn_{ex}"):
-                    st.session_state["search_query_val"] = ex
-                    st.rerun()
-
-        st.divider()
         st.caption("ℹ️ *Database contains 3,006 products, 8,734 release cycles, and 30,136 provenance records.*")
     else:
         cat_val = "" if category_filter == "All Categories" else category_filter
