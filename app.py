@@ -17,8 +17,8 @@ st.set_page_config(
     layout="wide"
 )
 
-@st.cache_resource
-def get_services():
+@st.cache_resource(ttl=3600)
+def get_services(cache_version: str = "v2_search_fix"):
     db = Database()
     search_svc = SearchService(db=db)
     sync_svc = SyncService(db=db)
@@ -28,6 +28,35 @@ def get_services():
     return db, search_svc, sync_svc, csv_imp, ms_svc, ent_svc
 
 db, search_svc, sync_svc, csv_imp, ms_svc, ent_svc = get_services()
+
+def fetch_distinct_categories(db_inst, search_inst):
+    if hasattr(search_inst, "get_distinct_categories"):
+        return search_inst.get_distinct_categories()
+    if hasattr(db_inst, "get_distinct_categories"):
+        return db_inst.get_distinct_categories()
+    with db_inst.get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT DISTINCT category FROM products WHERE category IS NOT NULL AND category != '' ORDER BY category ASC;")
+        return [row["category"] for row in cursor.fetchall()]
+
+def fetch_distinct_vendors(db_inst, search_inst):
+    if hasattr(search_inst, "get_distinct_vendors"):
+        return search_inst.get_distinct_vendors()
+    if hasattr(db_inst, "get_distinct_vendors"):
+        return db_inst.get_distinct_vendors()
+    with db_inst.get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT DISTINCT vendor FROM products WHERE vendor IS NOT NULL AND vendor != '' ORDER BY vendor ASC;")
+        return [row["vendor"] for row in cursor.fetchall()]
+
+def execute_catalog_search(search_inst, query, category, vendor, eol_only):
+    try:
+        return search_inst.search_catalog(query=query, category=category, vendor=vendor, eol_only=eol_only)
+    except TypeError:
+        results = search_inst.search_catalog(query=query, category=category, eol_only=eol_only)
+        if vendor:
+            results = [r for r in results if r["product"].get("vendor") == vendor]
+        return results
 
 # --- Sidebar Header & Navigation ---
 st.sidebar.image("https://img.icons8.com/color/96/shield.png", width=64)
@@ -59,8 +88,8 @@ if nav_choice == "🔍 Searchable Product Catalog":
     st.title("🔍 Searchable Enterprise Software EOL/EOS Catalog")
     st.markdown("Search support lifecycles, EOL/EOS dates, and release cycles across **3,000+ software products**, enterprise suites, utilities, OSs, languages, and databases.")
 
-    available_categories = ["All Categories"] + search_svc.get_distinct_categories()
-    available_vendors = ["All Vendors"] + search_svc.get_distinct_vendors()
+    available_categories = ["All Categories"] + fetch_distinct_categories(db, search_svc)
+    available_vendors = ["All Vendors"] + fetch_distinct_vendors(db, search_svc)
 
     col1, col2, col3, col4 = st.columns([3, 1.5, 1.5, 1.5])
     with col1:
@@ -75,7 +104,8 @@ if nav_choice == "🔍 Searchable Product Catalog":
     cat_val = "" if category_filter == "All Categories" else category_filter
     ven_val = "" if vendor_filter == "All Vendors" else vendor_filter
 
-    all_results = search_svc.search_catalog(
+    all_results = execute_catalog_search(
+        search_inst=search_svc,
         query=query_input,
         category=cat_val,
         vendor=ven_val,
