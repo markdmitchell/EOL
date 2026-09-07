@@ -22,15 +22,17 @@ logger = logging.getLogger(__name__)
 def scrape_xeol_listing(db: Database) -> int:
     """Scrapes the xeol.io database listing JSON."""
     url = "https://data.xeol.io/xeol/databases/listing.json"
+    if not url.startswith(("http://", "https://")):
+        raise ValueError(f"Invalid URL protocol scheme in '{url}'. Only HTTP/HTTPS permitted.")
     req = urllib.request.Request(url, headers={"User-Agent": "Antigravity-EOL-Scraper/1.0", "Accept": "application/json"})
-    
+
     ds = db.get_data_source_by_name("xeol.io Database Listing")
     ds_id = ds["id"] if ds else None
     conf = ds["confidence_score"] if ds else 0.95
 
     try:
         logger.info(f"Fetching xeol.io database listing from {url}...")
-        with urllib.request.urlopen(req, timeout=10) as resp:
+        with urllib.request.urlopen(req, timeout=10) as resp:  # noqa: S310
             data = json.loads(resp.read().decode("utf-8"))
             count = 0
             if isinstance(data, list):
@@ -136,7 +138,7 @@ def run_full_scrape():
     logger.info("Step 4/5: Syncing all products from endoflife.date API v1...")
     all_products = sync_svc.client.get_products()
     logger.info(f"Found {len(all_products)} products available on primary API.")
-    
+
     synced_count = 0
     start_time = time.time()
     for idx, p in enumerate(all_products, 1):
