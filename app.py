@@ -97,9 +97,15 @@ if nav_choice == "🔍 Searchable Product Catalog":
     available_categories = ["All Categories"] + fetch_distinct_categories(db, search_svc)
     available_vendors = ["All Vendors"] + fetch_distinct_vendors(db, search_svc)
 
+    if st.session_state.get("search_query_val"):
+        st.session_state["catalog_query_input"] = st.session_state.pop("search_query_val")
+
     col1, col2, col3, col4 = st.columns([3, 1.5, 1.5, 1.5])
     with col1:
-        query_input = st.text_input("Search Product (e.g. 7-Zip, WinRAR, Jira, OpenText, Python, Cisco, Windows)", "")
+        query_input = st.text_input(
+            "Search Product (e.g. 7-Zip, WinRAR, Jira, OpenText, Python, Cisco, Windows)",
+            key="catalog_query_input"
+        )
     with col2:
         category_filter = st.selectbox("Category Filter", available_categories)
     with col3:
@@ -107,56 +113,76 @@ if nav_choice == "🔍 Searchable Product Catalog":
     with col4:
         eol_only = st.checkbox("Only Show EOL Products/Cycles", value=False)
 
-    cat_val = "" if category_filter == "All Categories" else category_filter
-    ven_val = "" if vendor_filter == "All Vendors" else vendor_filter
+    has_search_term = bool(query_input.strip())
+    has_category = category_filter != "All Categories"
+    has_vendor = vendor_filter != "All Vendors"
+    is_active_search = has_search_term or has_category or has_vendor or eol_only
 
-    all_results = execute_catalog_search(
-        search_inst=search_svc,
-        query=query_input,
-        category=cat_val,
-        vendor=ven_val,
-        eol_only=eol_only
-    )
+    if not is_active_search:
+        st.info("💡 **Type a software or OS product name above to search EOL/EOS dates.**")
+        st.write("Or click one of the popular search examples below:")
 
-    total_results = len(all_results)
+        ex_cols = st.columns(6)
+        examples = ["7-Zip", "WinRAR", "Jira", "Python", "Cisco", "Windows"]
+        for idx, ex in enumerate(examples):
+            with ex_cols[idx]:
+                if st.button(f"🔍 {ex}", key=f"quick_btn_{ex}"):
+                    st.session_state["search_query_val"] = ex
+                    st.rerun()
 
-    # UI Pagination controls for ultra-fast rendering
-    p_col1, p_col2 = st.columns([2, 2])
-    with p_col1:
-        page_size = st.selectbox("Products per page", [10, 25, 50, 100], index=1)
-    with p_col2:
-        total_pages = max(1, (total_results + page_size - 1) // page_size)
-        
-        # Reset page state if query or filters changed
-        filter_state_key = f"{query_input}_{cat_val}_{ven_val}_{eol_only}_{page_size}"
-        if st.session_state.get("active_filter_key") != filter_state_key:
-            st.session_state["active_filter_key"] = filter_state_key
-            st.session_state["page_num"] = 1
-
-        selected_page = st.number_input(
-            "Page",
-            min_value=1,
-            max_value=total_pages,
-            value=min(st.session_state.get("page_num", 1), total_pages),
-            step=1
-        )
-        st.session_state["page_num"] = selected_page
-
-    current_page = st.session_state.get("page_num", 1)
-    start_idx = (current_page - 1) * page_size
-    end_idx = min(start_idx + page_size, total_results)
-    page_results = all_results[start_idx:end_idx]
-
-    if total_results == 0:
-        st.warning("No products found matching your search criteria.")
-        st.info("💡 **Tips**: Try broadening your search query, selecting 'All Vendors' / 'All Categories', or sync missing products in the 'Data Ingestion & Management' tab.")
+        st.divider()
+        st.caption("ℹ️ *Database contains 3,006 products, 8,734 release cycles, and 30,136 provenance records.*")
     else:
-        st.success(f"Found **{total_results}** matching enterprise products. Showing items **{start_idx + 1} - {end_idx}** (Page {current_page} of {total_pages}):")
+        cat_val = "" if category_filter == "All Categories" else category_filter
+        ven_val = "" if vendor_filter == "All Vendors" else vendor_filter
 
-        for item in page_results:
-            product = item["product"]
-            cycles = item["release_cycles"]
-            provenance = item["provenance"]
+        all_results = execute_catalog_search(
+            search_inst=search_svc,
+            query=query_input.strip(),
+            category=cat_val,
+            vendor=ven_val,
+            eol_only=eol_only
+        )
+
+        total_results = len(all_results)
+
+        # UI Pagination controls for ultra-fast rendering
+        p_col1, p_col2 = st.columns([2, 2])
+        with p_col1:
+            page_size = st.selectbox("Products per page", [10, 25, 50, 100], index=1)
+        with p_col2:
+            total_pages = max(1, (total_results + page_size - 1) // page_size)
+
+            # Reset page state if query or filters changed
+            filter_state_key = f"{query_input}_{cat_val}_{ven_val}_{eol_only}_{page_size}"
+            if st.session_state.get("active_filter_key") != filter_state_key:
+                st.session_state["active_filter_key"] = filter_state_key
+                st.session_state["page_num"] = 1
+
+            selected_page = st.number_input(
+                "Page",
+                min_value=1,
+                max_value=total_pages,
+                value=min(st.session_state.get("page_num", 1), total_pages),
+                step=1
+            )
+            st.session_state["page_num"] = selected_page
+
+        current_page = st.session_state.get("page_num", 1)
+        start_idx = (current_page - 1) * page_size
+        end_idx = min(start_idx + page_size, total_results)
+        page_results = all_results[start_idx:end_idx]
+
+        if total_results == 0:
+            st.warning("No products found matching your search criteria.")
+            st.info("💡 **Tips**: Try broadening your search query, selecting 'All Vendors' / 'All Categories', or sync missing products in the 'Data Ingestion & Management' tab.")
+        else:
+            st.success(f"Found **{total_results}** matching enterprise products. Showing items **{start_idx + 1} - {end_idx}** (Page {current_page} of {total_pages}):")
+
+            for item in page_results:
+                product = item["product"]
+                cycles = item["release_cycles"]
+                provenance = item["provenance"]
 
             with st.expander(f"📦 **{product['label']}** ({product['slug']}) — Vendor: `{product.get('vendor') or 'N/A'}` | Category: `{product['category'] or 'N/A'}`", expanded=(total_results == 1)):
                 col_a, col_b = st.columns([3, 1])
@@ -216,7 +242,7 @@ elif nav_choice == "🛡️ Runtime Environment Risk Dashboard":
 
     if items:
         df_inv = pd.DataFrame(items)
-        
+
         # Display controls
         c1, c2 = st.columns([2, 2])
         with c1:
@@ -318,7 +344,7 @@ elif nav_choice == "📜 Data Provenance & Audit Inspector":
     st.markdown("Inspect cryptographic hashes, original source URLs, verification timestamps, and licenses for all database records.")
 
     entity_type = st.selectbox("Entity Type", ["product", "release_cycle", "inventory"])
-    
+
     with db.get_connection() as conn:
         cursor = conn.cursor()
         cursor.execute("""
@@ -350,7 +376,7 @@ elif nav_choice == "⚙️ Data Ingestion & Management":
     with col1:
         st.subheader("🌐 Sync Enterprise Suites & Vendor Catalogs")
         st.write("Ingest Atlassian (Jira, Confluence), OpenText / Micro Focus (ALM, Content Suite, Vertica), IBM, SAP, Cisco, ServiceNow, and Splunk.")
-        
+
         if st.button("Ingest All Enterprise Software Suites (Jira, OpenText, IBM, SAP, Cisco, etc.)"):
             with st.spinner("Ingesting Enterprise Vendor Suites..."):
                 cnt = ent_svc.ingest_all_enterprise_suites()
@@ -416,7 +442,7 @@ elif nav_choice == "⚙️ Data Ingestion & Management":
         c_eol = st.text_input("EOL Date (YYYY-MM-DD)", "2027-12-31")
         c_source = st.text_input("Provenance Source Name", "Internal Vendor Contract / SLA")
         c_url = st.text_input("Provenance Source Document / URL", "https://internal.company.com/sla/app-1.0")
-        
+
         submitted = st.form_submit_button("Register Custom Software")
         if submitted:
             pid = db.upsert_product(slug=c_slug.lower(), name=c_name, label=c_name, category=c_cat)
