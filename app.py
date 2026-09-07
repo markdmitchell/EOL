@@ -18,13 +18,19 @@ st.set_page_config(
 )
 
 @st.cache_resource(ttl=3600)
-def get_services(cache_version: str = "v2_search_fix"):
+def get_services(cache_version: str = "v3_tracked_db"):
     db = Database()
     search_svc = SearchService(db=db)
     sync_svc = SyncService(db=db)
     csv_imp = CSVImporter(db=db)
     ms_svc = MultiSourceService(db=db)
     ent_svc = EnterpriseVendorService(db=db)
+
+    # Auto-seed database if empty on initial environment startup
+    if len(db.search_products()) == 0:
+        ent_svc.ingest_all_enterprise_suites()
+        sync_svc.sync_all_products_bulk()
+
     return db, search_svc, sync_svc, csv_imp, ms_svc, ent_svc
 
 db, search_svc, sync_svc, csv_imp, ms_svc, ent_svc = get_services()
@@ -120,8 +126,23 @@ if nav_choice == "🔍 Searchable Product Catalog":
         page_size = st.selectbox("Products per page", [10, 25, 50, 100], index=1)
     with p_col2:
         total_pages = max(1, (total_results + page_size - 1) // page_size)
-        current_page = st.number_input("Page", min_value=1, max_value=total_pages, value=1, step=1)
+        
+        # Reset page state if query or filters changed
+        filter_state_key = f"{query_input}_{cat_val}_{ven_val}_{eol_only}_{page_size}"
+        if st.session_state.get("active_filter_key") != filter_state_key:
+            st.session_state["active_filter_key"] = filter_state_key
+            st.session_state["page_num"] = 1
 
+        selected_page = st.number_input(
+            "Page",
+            min_value=1,
+            max_value=total_pages,
+            value=min(st.session_state.get("page_num", 1), total_pages),
+            step=1
+        )
+        st.session_state["page_num"] = selected_page
+
+    current_page = st.session_state.get("page_num", 1)
     start_idx = (current_page - 1) * page_size
     end_idx = min(start_idx + page_size, total_results)
     page_results = all_results[start_idx:end_idx]

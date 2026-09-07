@@ -4,6 +4,7 @@ __pycache__/
 *.pyo
 *.pyd
 *.db
+!db/eol_database.db
 *.sqlite
 .DS_Store
 .vscode/
