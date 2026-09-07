@@ -679,6 +679,269 @@ class EnterpriseVendorService:
                     {"cycle": "8.0", "release_date": "2018-04-19", "eoas_date": "2023-04-30", "eol_date": "2026-04-30", "is_lts": True, "is_eol": False},
                     {"cycle": "5.7", "release_date": "2013-10-23", "eoas_date": "2018-10-31", "eol_date": "2023-10-31", "is_lts": True, "is_eol": True}
                 ]
+            },
+
+            # ==========================================
+            # PUBLIC CLOUD & MANAGED KUBERNETES (AWS, AZURE, GCP)
+            # ==========================================
+            {
+                "slug": "amazon-linux",
+                "name": "Amazon Linux",
+                "label": "Amazon Linux Operating System",
+                "category": "os",
+                "vendor": "Amazon Web Services",
+                "tags": ["aws", "amazon", "linux", "cloud", "os"],
+                "source_name": "Flexera Technopedia Catalog",
+                "source_url": "https://aws.amazon.com/amazon-linux-2023/faqs/",
+                "cycles": [
+                    {"cycle": "2023", "release_date": "2023-03-15", "eoas_date": "2028-03-15", "eol_date": "2028-03-15", "is_lts": True, "is_eol": False},
+                    {"cycle": "2", "release_date": "2017-12-13", "eoas_date": "2024-06-30", "eol_date": "2025-06-30", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "aws-eks",
+                "name": "AWS Elastic Kubernetes Service (EKS)",
+                "label": "AWS EKS Kubernetes Runtime",
+                "category": "server-app",
+                "vendor": "Amazon Web Services",
+                "tags": ["aws", "eks", "kubernetes", "cloud", "containers"],
+                "source_name": "Flexera Technopedia Catalog",
+                "source_url": "https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html",
+                "cycles": [
+                    {"cycle": "1.30", "release_date": "2024-05-23", "eoas_date": "2025-07-31", "eol_date": "2025-07-31", "is_lts": False, "is_eol": False},
+                    {"cycle": "1.29", "release_date": "2024-01-23", "eoas_date": "2025-03-31", "eol_date": "2025-03-31", "is_lts": False, "is_eol": False},
+                    {"cycle": "1.28", "release_date": "2023-09-26", "eoas_date": "2024-11-30", "eol_date": "2024-11-30", "is_lts": False, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "azure-aks",
+                "name": "Azure Kubernetes Service (AKS)",
+                "label": "Microsoft Azure Kubernetes Service",
+                "category": "server-app",
+                "vendor": "Microsoft Corporation",
+                "tags": ["azure", "aks", "kubernetes", "cloud", "microsoft"],
+                "source_name": "Azure Updates",
+                "source_url": "https://learn.microsoft.com/en-us/azure/aks/supported-kubernetes-versions",
+                "cycles": [
+                    {"cycle": "1.30", "release_date": "2024-05-30", "eoas_date": "2025-05-30", "eol_date": "2025-05-30", "is_lts": False, "is_eol": False},
+                    {"cycle": "1.29", "release_date": "2024-03-01", "eoas_date": "2025-03-01", "eol_date": "2025-03-01", "is_lts": False, "is_eol": False},
+                    {"cycle": "1.28", "release_date": "2023-11-01", "eoas_date": "2024-11-01", "eol_date": "2024-11-01", "is_lts": False, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "gke",
+                "name": "Google Kubernetes Engine (GKE)",
+                "label": "Google Kubernetes Engine",
+                "category": "server-app",
+                "vendor": "Google",
+                "tags": ["gcp", "gke", "google", "kubernetes", "cloud"],
+                "source_name": "Flexera Technopedia Catalog",
+                "source_url": "https://cloud.google.com/kubernetes-engine/docs/release-schedule",
+                "cycles": [
+                    {"cycle": "1.30", "release_date": "2024-06-01", "eoas_date": "2025-07-01", "eol_date": "2025-07-01", "is_lts": False, "is_eol": False},
+                    {"cycle": "1.29", "release_date": "2024-02-01", "eoas_date": "2025-03-01", "eol_date": "2025-03-01", "is_lts": False, "is_eol": False},
+                    {"cycle": "1.28", "release_date": "2023-10-01", "eoas_date": "2024-11-01", "eol_date": "2024-11-01", "is_lts": False, "is_eol": False}
+                ]
+            },
+
+            # ==========================================
+            # ENTERPRISE LINUX DISTRIBUTIONS (SLES, DEBIAN, ALMALINUX, ROCKY, FREEBSD)
+            # ==========================================
+            {
+                "slug": "sles",
+                "name": "SUSE Linux Enterprise Server (SLES)",
+                "label": "SUSE Linux Enterprise Server",
+                "category": "os",
+                "vendor": "SUSE Software Solutions",
+                "tags": ["suse", "sles", "linux", "enterprise", "os"],
+                "source_name": "Platform EOL Radar",
+                "source_url": "https://www.suse.com/lifecycle/",
+                "cycles": [
+                    {"cycle": "15 SP5", "release_date": "2023-06-20", "eoas_date": "2028-07-31", "eol_date": "2031-07-31", "is_lts": True, "is_eol": False},
+                    {"cycle": "15 SP4", "release_date": "2022-06-21", "eoas_date": "2023-12-31", "eol_date": "2026-12-31", "is_lts": True, "is_eol": False},
+                    {"cycle": "12 SP5", "release_date": "2019-12-09", "eoas_date": "2024-10-31", "eol_date": "2027-10-31", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "debian",
+                "name": "Debian GNU/Linux",
+                "label": "Debian GNU/Linux Operating System",
+                "category": "os",
+                "vendor": "Debian Project",
+                "tags": ["debian", "linux", "os", "open-source"],
+                "source_name": "Platform EOL Radar",
+                "source_url": "https://wiki.debian.org/LTS",
+                "cycles": [
+                    {"cycle": "12", "release_date": "2023-06-10", "eoas_date": "2026-06-10", "eol_date": "2028-06-30", "is_lts": True, "is_eol": False},
+                    {"cycle": "11", "release_date": "2021-08-14", "eoas_date": "2024-07-31", "eol_date": "2026-06-30", "is_lts": True, "is_eol": False},
+                    {"cycle": "10", "release_date": "2019-07-06", "eoas_date": "2022-07-18", "eol_date": "2024-06-30", "is_lts": True, "is_eol": True}
+                ]
+            },
+            {
+                "slug": "almalinux",
+                "name": "AlmaLinux",
+                "label": "AlmaLinux OS (Enterprise Linux)",
+                "category": "os",
+                "vendor": "AlmaLinux OS Foundation",
+                "tags": ["almalinux", "rhel", "linux", "enterprise", "os"],
+                "source_name": "Platform EOL Radar",
+                "source_url": "https://wiki.almalinux.org/release-notes/",
+                "cycles": [
+                    {"cycle": "9", "release_date": "2022-05-26", "eoas_date": "2027-05-31", "eol_date": "2032-05-31", "is_lts": True, "is_eol": False},
+                    {"cycle": "8", "release_date": "2021-03-30", "eoas_date": "2024-05-31", "eol_date": "2029-05-31", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "rocky-linux",
+                "name": "Rocky Linux",
+                "label": "Rocky Linux (Enterprise Linux)",
+                "category": "os",
+                "vendor": "Rocky Enterprise Software Foundation",
+                "tags": ["rocky", "rhel", "linux", "enterprise", "os"],
+                "source_name": "Platform EOL Radar",
+                "source_url": "https://docs.rockylinux.org/release_notes/",
+                "cycles": [
+                    {"cycle": "9", "release_date": "2022-07-14", "eoas_date": "2027-05-31", "eol_date": "2032-05-31", "is_lts": True, "is_eol": False},
+                    {"cycle": "8", "release_date": "2021-04-30", "eoas_date": "2024-05-31", "eol_date": "2029-05-31", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "freebsd",
+                "name": "FreeBSD",
+                "label": "FreeBSD Operating System",
+                "category": "os",
+                "vendor": "FreeBSD Project",
+                "tags": ["freebsd", "bsd", "unix", "os"],
+                "source_name": "Platform EOL Radar",
+                "source_url": "https://www.freebsd.org/security/#sup",
+                "cycles": [
+                    {"cycle": "14.0", "release_date": "2023-11-20", "eoas_date": "2028-11-30", "eol_date": "2028-11-30", "is_lts": True, "is_eol": False},
+                    {"cycle": "13.2", "release_date": "2023-04-11", "eoas_date": "2024-06-30", "eol_date": "2024-06-30", "is_lts": False, "is_eol": True}
+                ]
+            },
+
+            # ==========================================
+            # ENTERPRISE FIREWALLS & MIDDLEWARE (SONICWALL, SOPHOS, WATCHGUARD, NGINX PLUS, TOMCAT)
+            # ==========================================
+            {
+                "slug": "sonicwall-sonicos",
+                "name": "SonicWall SonicOS",
+                "label": "SonicWall SonicOS Firewall Firmware",
+                "category": "os",
+                "vendor": "SonicWall",
+                "tags": ["sonicwall", "sonicos", "firewall", "security"],
+                "source_name": "Flexera Technopedia Catalog",
+                "source_url": "https://www.sonicwall.com/support/product-lifecycle-information/",
+                "cycles": [
+                    {"cycle": "7.1", "release_date": "2023-11-15", "eoas_date": "2026-11-15", "eol_date": "2028-11-15", "is_lts": True, "is_eol": False},
+                    {"cycle": "7.0", "release_date": "2020-09-15", "eoas_date": "2024-09-15", "eol_date": "2025-09-15", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "sophos-sfos",
+                "name": "Sophos Firewall (SFOS)",
+                "label": "Sophos Firewall Operating System (SFOS)",
+                "category": "os",
+                "vendor": "Sophos",
+                "tags": ["sophos", "sfos", "firewall", "security"],
+                "source_name": "Flexera Technopedia Catalog",
+                "source_url": "https://support.sophos.com/support/s/article/KB-000035279",
+                "cycles": [
+                    {"cycle": "20.0", "release_date": "2023-11-14", "eoas_date": "2026-11-14", "eol_date": "2027-11-14", "is_lts": True, "is_eol": False},
+                    {"cycle": "19.5", "release_date": "2022-11-16", "eoas_date": "2025-05-31", "eol_date": "2026-05-31", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "nginx-plus",
+                "name": "NGINX Plus",
+                "label": "F5 NGINX Plus Enterprise Web Server",
+                "category": "server-app",
+                "vendor": "F5 / NGINX",
+                "tags": ["nginx", "f5", "webserver", "load-balancer"],
+                "source_name": "Flexera Technopedia Catalog",
+                "source_url": "https://docs.nginx.com/nginx/releases/",
+                "cycles": [
+                    {"cycle": "R31", "release_date": "2024-02-14", "eoas_date": "2025-02-14", "eol_date": "2025-02-14", "is_lts": True, "is_eol": False},
+                    {"cycle": "R30", "release_date": "2023-08-23", "eoas_date": "2024-08-23", "eol_date": "2024-08-23", "is_lts": True, "is_eol": True}
+                ]
+            },
+            {
+                "slug": "apache-tomcat",
+                "name": "Apache Tomcat",
+                "label": "Apache Tomcat Application Server",
+                "category": "server-app",
+                "vendor": "Apache Software Foundation",
+                "tags": ["apache", "tomcat", "java", "servlet", "webserver"],
+                "source_name": "Versio.io Software Lifecycle API",
+                "source_url": "https://tomcat.apache.org/whichversion.html",
+                "cycles": [
+                    {"cycle": "10.1", "release_date": "2022-09-26", "eoas_date": "2027-09-26", "eol_date": "2027-09-26", "is_lts": True, "is_eol": False},
+                    {"cycle": "9.0", "release_date": "2018-01-18", "eoas_date": "2027-03-31", "eol_date": "2027-03-31", "is_lts": True, "is_eol": False},
+                    {"cycle": "8.5", "release_date": "2016-03-24", "eoas_date": "2024-03-31", "eol_date": "2024-03-31", "is_lts": True, "is_eol": True}
+                ]
+            },
+
+            # ==========================================
+            # JAVA / OPENJDK & LANGUAGE RUNTIMES
+            # ==========================================
+            {
+                "slug": "openjdk",
+                "name": "Java / OpenJDK",
+                "label": "OpenJDK / Java SE Platform",
+                "category": "lang",
+                "vendor": "Oracle / OpenJDK Community",
+                "tags": ["java", "openjdk", "jdk", "runtime", "lang"],
+                "source_name": "Versio.io Software Lifecycle API",
+                "source_url": "https://www.oracle.com/java/technologies/java-se-support-roadmap.html",
+                "cycles": [
+                    {"cycle": "21", "release_date": "2023-09-19", "eoas_date": "2028-09-19", "eol_date": "2031-09-19", "is_lts": True, "is_eol": False},
+                    {"cycle": "17", "release_date": "2021-09-14", "eoas_date": "2026-09-14", "eol_date": "2029-09-14", "is_lts": True, "is_eol": False},
+                    {"cycle": "11", "release_date": "2018-09-25", "eoas_date": "2023-09-25", "eol_date": "2026-09-25", "is_lts": True, "is_eol": False},
+                    {"cycle": "8", "release_date": "2014-03-18", "eoas_date": "2022-03-31", "eol_date": "2030-12-31", "is_lts": True, "is_eol": False}
+                ]
+            },
+            {
+                "slug": "golang",
+                "name": "Go (Golang)",
+                "label": "Go Programming Language Runtime",
+                "category": "lang",
+                "vendor": "Google",
+                "tags": ["go", "golang", "google", "lang", "runtime"],
+                "source_name": "Go Release Policy",
+                "source_url": "https://go.dev/doc/devel/release",
+                "cycles": [
+                    {"cycle": "1.22", "release_date": "2024-02-06", "eoas_date": "2025-02-06", "eol_date": "2025-02-06", "is_lts": False, "is_eol": False},
+                    {"cycle": "1.21", "release_date": "2023-08-08", "eoas_date": "2024-08-08", "eol_date": "2024-08-08", "is_lts": False, "is_eol": True}
+                ]
+            },
+            {
+                "slug": "rust",
+                "name": "Rust",
+                "label": "Rust Programming Language Compiler",
+                "category": "lang",
+                "vendor": "Rust Foundation",
+                "tags": ["rust", "compiler", "lang", "systems"],
+                "source_name": "Versio.io Software Lifecycle API",
+                "source_url": "https://www.rust-lang.org/policies/security",
+                "cycles": [
+                    {"cycle": "1.78", "release_date": "2024-05-02", "eoas_date": "2024-06-13", "eol_date": "2024-06-13", "is_lts": False, "is_eol": False},
+                    {"cycle": "1.77", "release_date": "2024-03-21", "eoas_date": "2024-05-02", "eol_date": "2024-05-02", "is_lts": False, "is_eol": True}
+                ]
+            },
+            {
+                "slug": "rails",
+                "name": "Ruby on Rails",
+                "label": "Ruby on Rails Web Framework",
+                "category": "framework",
+                "vendor": "Rails Core Team",
+                "tags": ["rails", "ruby", "framework", "web"],
+                "source_name": "Versio.io Software Lifecycle API",
+                "source_url": "https://rubyonrails.org/maintenance",
+                "cycles": [
+                    {"cycle": "7.1", "release_date": "2023-10-05", "eoas_date": "2025-10-05", "eol_date": "2026-10-05", "is_lts": True, "is_eol": False},
+                    {"cycle": "7.0", "release_date": "2021-12-15", "eoas_date": "2023-10-05", "eol_date": "2025-04-05", "is_lts": True, "is_eol": False},
+                    {"cycle": "6.1", "release_date": "2020-12-09", "eoas_date": "2022-12-09", "eol_date": "2024-10-01", "is_lts": True, "is_eol": True}
+                ]
             }
         ]
 
