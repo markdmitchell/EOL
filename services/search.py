@@ -1,6 +1,6 @@
 from typing import Any
 
-from db.database import Database
+from db.database import SYNONYM_MAP, Database
 
 
 class SearchService:
@@ -63,9 +63,11 @@ class SearchService:
             deduped.sort(key=lambda x: self._calculate_relevance_score(x, query), reverse=True)
         return deduped
 
-    def _calculate_relevance_score(self, item: dict[str, Any], query: str) -> tuple[int, int, str]:
+    def _calculate_relevance_score(self, item: dict[str, Any], query: str) -> tuple[int, int, int, str]:
         q = query.lower().strip()
-        q_norm = q.replace("-", "").replace(" ", "").replace("_", "")
+        expanded_q = SYNONYM_MAP.get(q, q)
+        q_clean = expanded_q.replace("-", " ").replace("_", " ").replace("/", " ")
+        q_norm = expanded_q.replace("-", "").replace(" ", "").replace("_", "")
 
         product = item["product"]
         cycles_count = len(item["release_cycles"])
@@ -73,23 +75,27 @@ class SearchService:
         slug = (product.get("slug") or "").lower()
         label = (product.get("label") or "").lower()
         vendor = (product.get("vendor") or "").lower()
+        tags = [t.lower() for t in (product.get("tags") or [])]
 
         score = 0
-        if cycles_count > 0:
-            score += 100
-
-        if slug == q or name == q or q_norm == slug.replace("-", "").replace("_", ""):
-            score += 500
-        elif slug.startswith(q) or name.startswith(q):
-            score += 300
+        # 1. Exact match on slug or name
+        if slug == q or name == q or q_norm == slug.replace("-", "").replace("_", "") or q_norm == name.replace("-", "").replace("_", ""):
+            score += 1000
+        elif slug == expanded_q or name == expanded_q:
+            score += 900
+        elif slug.startswith((q, q_norm)) or name.startswith(q):
+            score += 600
+        elif q_clean in name.replace("-", " ") or q_clean in label.replace("-", " "):
+            score += 400
         elif q in slug or q in name:
-            score += 200
-        elif q in label:
-            score += 100
-        elif q in vendor:
-            score += 50
+            score += 300
+        elif q in label or q in vendor or any(q in t for t in tags):
+            score += 150
 
-        return (score, cycles_count, label)
+        if cycles_count > 0:
+            score += 200
+
+        return (score, cycles_count, -len(slug), label)
 
     def _deduplicate_results(self, results: list[dict[str, Any]]) -> list[dict[str, Any]]:
         """

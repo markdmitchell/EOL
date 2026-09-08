@@ -6,6 +6,24 @@ from typing import Any
 
 DEFAULT_DB_PATH = os.path.join(os.path.dirname(__file__), "eol_database.db")
 
+SYNONYM_MAP = {
+    "k8s": "kubernetes",
+    "rhel": "red hat enterprise linux",
+    "hana": "sap s4hana",
+    "mssql": "microsoft sql server",
+    "postgres": "postgresql",
+    "pg": "postgresql",
+    "esxi": "vmware",
+    "vsphere": "vmware",
+    "alm": "opentext micro focus alm",
+    "jdk": "openjdk java",
+    "jvm": "java",
+    "dotnet": ".net core",
+    "7zip": "7-zip",
+    "winzip": "winzip",
+    "bzip": "bzip2"
+}
+
 class Database:
     def __init__(self, db_path: str = DEFAULT_DB_PATH):
         self.db_path = db_path
@@ -309,18 +327,34 @@ class Database:
             params: list[Any] = []
 
             if query:
-                clean_q = query.strip()
-                q_like = f"%{clean_q}%"
-                # Strip hyphens/spaces for normalized matching (e.g., '7zip' matching '7-zip')
-                q_norm = clean_q.replace("-", "").replace(" ", "").replace("_", "")
-                q_norm_like = f"%{q_norm}%"
+                clean_q = query.strip().lower()
+                expanded_q = SYNONYM_MAP.get(clean_q, clean_q)
+                tokens = [t for t in expanded_q.replace("-", " ").replace("_", " ").split() if len(t) > 0]
 
-                sql += """ AND (
-                    name LIKE ? OR label LIKE ? OR slug LIKE ? OR vendor LIKE ? OR tags LIKE ?
-                    OR REPLACE(REPLACE(REPLACE(slug, '-', ''), ' ', ''), '_', '') LIKE ?
-                    OR REPLACE(REPLACE(REPLACE(name, '-', ''), ' ', ''), '_', '') LIKE ?
-                )"""
-                params.extend([q_like, q_like, q_like, q_like, q_like, q_norm_like, q_norm_like])
+                if len(tokens) == 1:
+                    t = tokens[0]
+                    t_like = f"%{t}%"
+                    t_norm = t.replace("-", "").replace(" ", "").replace("_", "")
+                    t_norm_like = f"%{t_norm}%"
+                    sql += """ AND (
+                        name LIKE ? OR label LIKE ? OR slug LIKE ? OR vendor LIKE ? OR tags LIKE ?
+                        OR REPLACE(REPLACE(REPLACE(slug, '-', ''), ' ', ''), '_', '') LIKE ?
+                        OR REPLACE(REPLACE(REPLACE(name, '-', ''), ' ', ''), '_', '') LIKE ?
+                    )"""
+                    params.extend([t_like, t_like, t_like, t_like, t_like, t_norm_like, t_norm_like])
+                else:
+                    token_clauses = []
+                    for t in tokens:
+                        t_like = f"%{t}%"
+                        t_norm = t.replace("-", "").replace(" ", "").replace("_", "")
+                        t_norm_like = f"%{t_norm}%"
+                        token_clauses.append("""(
+                            slug LIKE ? OR name LIKE ? OR label LIKE ? OR vendor LIKE ? OR tags LIKE ?
+                            OR REPLACE(REPLACE(REPLACE(slug, '-', ''), ' ', ''), '_', '') LIKE ?
+                            OR REPLACE(REPLACE(REPLACE(name, '-', ''), ' ', ''), '_', '') LIKE ?
+                        )""")
+                        params.extend([t_like, t_like, t_like, t_like, t_like, t_norm_like, t_norm_like])
+                    sql += " AND (" + " AND ".join(token_clauses) + ")"
 
             if category:
                 sql += " AND category = ?"
