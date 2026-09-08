@@ -178,20 +178,20 @@ st.sidebar.divider()
 st.sidebar.markdown(
     """
     <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; margin-top: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
-        <div style="font-size: 0.85rem; font-weight: 700; color: #0f172a; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-            👤 <span>Authors & Contributors</span>
+        <div style="font-size: 0.85rem; font-weight: 700; color: #0f172a; margin-bottom: 10px;">
+            👤 Authors & Contributors
         </div>
-        <div style="font-size: 0.82rem; line-height: 1.6; color: #334155;">
-            <div style="margin-bottom: 8px;">
-                <strong>Mark D. Mitchell</strong><br/>
-                <a href="https://www.linkedin.com/in/markdmitchell/" target="_blank" style="color: #0a66c2; text-decoration: none; font-weight: 600; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">
-                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="14" height="14"/> LinkedIn Profile
+        <div style="font-size: 0.84rem; color: #334155;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span><strong>Mark D. Mitchell</strong></span>
+                <a href="https://www.linkedin.com/in/markdmitchell/" target="_blank" title="Mark D. Mitchell on LinkedIn" style="display: inline-flex; align-items: center; text-decoration: none;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="18" height="18" alt="LinkedIn"/>
                 </a>
             </div>
-            <div>
-                <strong>James Shenberger</strong><br/>
-                <a href="https://www.linkedin.com/in/jamesshenberger/" target="_blank" style="color: #0a66c2; text-decoration: none; font-weight: 600; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">
-                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="14" height="14"/> LinkedIn Profile
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span><strong>James Shenberger</strong></span>
+                <a href="https://www.linkedin.com/in/jamesshenberger/" target="_blank" title="James Shenberger on LinkedIn" style="display: inline-flex; align-items: center; text-decoration: none;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="18" height="18" alt="LinkedIn"/>
                 </a>
             </div>
         </div>
