@@ -12,7 +12,7 @@ from services.sync import SyncService
 
 # Page Configuration
 st.set_page_config(
-    page_title="Software EOL/EOS Database & Enterprise Intelligence",
+    page_title="endoflife.tech | Enterprise Software EOL/EOS Intelligence (v0.9.0-beta)",
     page_icon="🛡️",
     layout="wide"
 )
@@ -66,8 +66,17 @@ def execute_catalog_search(search_inst, query, category, vendor, eol_only):
 
 # --- Sidebar Header & Navigation ---
 st.sidebar.image("https://img.icons8.com/color/96/shield.png", width=64)
-st.sidebar.title("EOL/EOS Intelligence")
+st.sidebar.title("endoflife.tech")
 st.sidebar.caption("Enterprise Software Lifecycle Reference Portal")
+st.sidebar.markdown(
+    """
+    <div style="background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 10px 12px; margin-bottom: 14px; font-size: 0.82rem; color: #1e40af;">
+        🌐 <strong>Live Site:</strong> <a href="https://endoflife.tech" target="_blank" style="color: #2563eb; font-weight: bold; text-decoration: underline;">endoflife.tech</a><br/>
+        🏷️ <strong>Version:</strong> <code>v0.9.0-beta</code> <span style="background-color: #fef08a; color: #854d0e; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">EARLY BETA</span>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 nav_choice = st.sidebar.radio(
     "Navigation",
@@ -84,7 +93,19 @@ nav_choice = st.sidebar.radio(
 # TAB 1: Searchable Product Catalog
 # ==========================================
 if nav_choice == "🔍 Searchable Product Catalog":
-    st.title("🔍 Searchable Enterprise Software EOL/EOS Catalog")
+    col_t1, col_t2 = st.columns([3, 1])
+    with col_t1:
+        st.title("🔍 Searchable Enterprise Software EOL/EOS Catalog")
+    with col_t2:
+        st.markdown(
+            """
+            <div style="text-align: right; padding-top: 15px;">
+                <span style="background-color: #fef08a; color: #854d0e; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem; font-weight: bold; border: 1px solid #fde047;">⚡ EARLY BETA v0.9.0-beta</span><br/>
+                <span style="font-size: 0.8rem; color: #64748b;">Domain: <a href="https://endoflife.tech" target="_blank" style="color: #2563eb; font-weight: 600;">endoflife.tech</a></span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
     st.markdown("Search support lifecycles, EOL/EOS dates, and release cycles across **3,000+ software products**, enterprise suites, utilities, OSs, languages, and databases.")
 
     available_categories = ["All Categories"] + fetch_distinct_categories(db, search_svc)
