@@ -33,14 +33,14 @@ class SearchService:
 
         for p in products:
             cycles = self.db.get_release_cycles_for_product(p["id"])
-            
+
             filtered_cycles = []
             for c in cycles:
                 if eol_only and not c["is_eol"]:
                     continue
                 if lts_only and not c["is_lts"]:
                     continue
-                
+
                 # Fetch all provenance records for this cycle to check for date collisions
                 cycle_prov = self.db.get_provenance("release_cycle", c["id"])
                 c["provenance_claims"] = cycle_prov
@@ -72,7 +72,7 @@ class SearchService:
         """
         if len(prov_records) < 2:
             return False
-        
+
         # Collect distinct source notes / dates if present
         dates = set()
         for r in prov_records:

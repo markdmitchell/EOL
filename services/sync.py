@@ -17,7 +17,7 @@ class SyncService:
         """
         try:
             details = self.client.get_product(product_slug)
-            
+
             # Upsert product record
             product_id = self.db.upsert_product(
                 slug=details.name,

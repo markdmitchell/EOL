@@ -38,7 +38,7 @@ class EndoflifeClient:
         url = f"{self.base_url}{endpoint}"
         if not url.startswith(("http://", "https://")):
             raise ValueError(f"Invalid URL protocol scheme in '{url}'. Only HTTP/HTTPS permitted.")
-        req = urllib.request.Request(  # noqa: S310
+        req = urllib.request.Request(
             url,
             headers={
                 "User-Agent": self.user_agent,
@@ -47,7 +47,7 @@ class EndoflifeClient:
         )
 
         try:
-            with urllib.request.urlopen(req, timeout=self.timeout) as response:  # noqa: S310
+            with urllib.request.urlopen(req, timeout=self.timeout) as response:
                 payload = json.loads(response.read().decode("utf-8"))
                 if isinstance(payload, dict) and "result" in payload:
                     return payload["result"]

@@ -32,7 +32,7 @@ def scrape_xeol_listing(db: Database) -> int:
 
     try:
         logger.info(f"Fetching xeol.io database listing from {url}...")
-        with urllib.request.urlopen(req, timeout=10) as resp:  # noqa: S310
+        with urllib.request.urlopen(req, timeout=10) as resp:
             data = json.loads(resp.read().decode("utf-8"))
             count = 0
             if isinstance(data, list):

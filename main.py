@@ -24,7 +24,7 @@ def main():
     print(f"Category: {python_info.category}")
     print(f"Tags: {', '.join(python_info.tags)}")
     print(f"Version check command: {python_info.version_command.strip() if python_info.version_command else 'N/A'}")
-    
+
     print("\nRecent Python releases:")
     for rel in python_info.releases[:5]:
         eol_str = f"EOL since {rel.eol_from}" if rel.is_eol else f"Supported until {rel.eol_from or 'TBD'}"

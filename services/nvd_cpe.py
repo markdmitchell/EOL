@@ -180,7 +180,7 @@ def ingest_nvd_cpe_into_db(db: Database | None = None, records: list[dict[str, A
     for r in records:
         slug = f"{r['vendor'].lower().replace(' ', '-')}-{r['product'].lower().replace(' ', '-')}"
         category = "os" if r["type"] == "Operating System" else "server-app"
-        
+
         pid = db.upsert_product(
             slug=slug,
             name=r["product"],

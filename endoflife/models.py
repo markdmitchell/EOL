@@ -42,7 +42,7 @@ class ReleaseCycle:
     def from_dict(cls, data: dict[str, Any]) -> "ReleaseCycle":
         latest_data = data.get("latest")
         latest_obj = ProductVersion.from_dict(latest_data) if latest_data and isinstance(latest_data, dict) else None
-        
+
         # Handle string or boolean for eol / lts / eoas fields if present
         eol_val = data.get("isEol", False)
         if isinstance(eol_val, str):

@@ -28,7 +28,7 @@ def seed():
     print("\n=== Ingesting Popular Products from endoflife.date API ===")
     sync_svc = SyncService(db=db)
     popular_list = ["python", "ubuntu", "nodejs", "php", "dotnet", "react", "postgresql", "mysql", "nginx", "windows-server", "alpine-linux", "rhel", "debian"]
-    
+
     synced_count = 0
     for slug in popular_list:
         if sync_svc.sync_product(slug):
