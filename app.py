@@ -22,20 +22,26 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* Global Page Styling */
+    /* Global Page Styling - Slate Enterprise Theme */
     .stApp {
         background-color: #f8fafc;
+        color: #0f172a;
     }
     
     /* Bento Grid Stat Tile */
     .bento-tile {
-        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        background: #ffffff;
         border: 1px solid #e2e8f0;
         border-radius: 12px;
         padding: 16px 20px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
         text-align: center;
         margin-bottom: 12px;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .bento-tile:hover {
+        border-color: #cbd5e1;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
     }
     .bento-tile-val {
         font-size: 1.6rem;
@@ -51,7 +57,7 @@ st.markdown(
         letter-spacing: 0.04em;
     }
 
-    /* Bento Pill Badges */
+    /* Bento Pill Badges - Standard Tailwind Enterprise Colors */
     .pill-badge {
         display: inline-block;
         padding: 3px 10px;
@@ -75,10 +81,27 @@ st.markdown(
         color: #b45309;
         border: 1px solid #fde68a;
     }
+    .pill-red {
+        background-color: #fef2f2;
+        color: #991b1b;
+        border: 1px solid #fecaca;
+    }
     .pill-slate {
         background-color: #f1f5f9;
         color: #334155;
         border: 1px solid #cbd5e1;
+    }
+
+    /* Standardized Early Beta & Version Badges */
+    .badge-beta {
+        background-color: #eff6ff;
+        color: #1d4ed8;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        border: 1px solid #bfdbfe;
+        display: inline-block;
     }
 
     /* Streamlit Expander Overrides for Bento Cards */
@@ -87,26 +110,28 @@ st.markdown(
         border: 1px solid #e2e8f0 !important;
         border-radius: 12px !important;
         margin-bottom: 14px !important;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05) !important;
         transition: all 0.15s ease-in-out;
     }
     div[data-testid="stExpander"]:hover {
         border-color: #cbd5e1 !important;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02) !important;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05) !important;
     }
     div[data-testid="stExpander"] > summary {
         border-radius: 12px !important;
         padding: 12px 16px !important;
+        font-weight: 600 !important;
+        color: #0f172a !important;
     }
 
     /* Bento Search Panel Card */
     .bento-search-card {
         background: #ffffff;
-        border: 1px solid #cbd5e1;
+        border: 1px solid #e2e8f0;
         border-radius: 14px;
         padding: 18px 22px;
         margin-bottom: 20px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
     }
     .bento-search-title {
         font-size: 1.05rem;
@@ -118,16 +143,29 @@ st.markdown(
         gap: 8px;
     }
 
-    /* Input Field Mobile Enhancements */
-    div[data-testid="stTextInput"] > label {
-        font-weight: 700 !important;
-        color: #1e293b !important;
-        font-size: 0.95rem !important;
-    }
-    div[data-testid="stSelectbox"] > label {
+    /* Input Field Standardized Controls */
+    div[data-testid="stTextInput"] > label,
+    div[data-testid="stSelectbox"] > label,
+    div[data-testid="stNumberInput"] > label,
+    div[data-testid="stMultiSelect"] > label {
         font-weight: 600 !important;
-        color: #334155 !important;
-        font-size: 0.88rem !important;
+        color: #0f172a !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* Button Standardized Styling */
+    div.stButton > button {
+        border-radius: 8px !important;
+        border: 1px solid #cbd5e1 !important;
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        font-weight: 600 !important;
+        transition: all 0.15s ease-in-out !important;
+    }
+    div.stButton > button:hover {
+        border-color: #94a3b8 !important;
+        background-color: #f8fafc !important;
+        color: #2563eb !important;
     }
 
     /* Header Badge Container */
@@ -233,9 +271,9 @@ st.sidebar.title("endoflife.tech")
 st.sidebar.caption("Enterprise Software Lifecycle Reference Portal")
 st.sidebar.markdown(
     """
-    <div style="background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 10px 12px; margin-bottom: 14px; font-size: 0.82rem; color: #1e40af;">
+    <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 12px; margin-bottom: 14px; font-size: 0.82rem; color: #334155; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
         🌐 <strong>Live Site:</strong> <a href="https://endoflife.tech" target="_blank" style="color: #2563eb; font-weight: bold; text-decoration: underline;">endoflife.tech</a><br/>
-        🏷️ <strong>Version:</strong> <code>v0.9.0-beta</code> <span style="background-color: #fef08a; color: #854d0e; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">EARLY BETA</span>
+        🏷️ <strong>Version:</strong> <code>v0.9.0-beta</code> <span class="badge-beta">EARLY BETA</span>
     </div>
     """,
     unsafe_allow_html=True
@@ -296,7 +334,7 @@ if nav_choice == "🔍 Searchable Product Catalog":
         st.markdown(
             """
             <div class="header-badge-container">
-                <span style="background-color: #fef08a; color: #854d0e; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem; font-weight: bold; border: 1px solid #fde047;">⚡ EARLY BETA v0.9.0-beta</span><br/>
+                <span class="badge-beta">⚡ EARLY BETA v0.9.0-beta</span><br/>
                 <span style="font-size: 0.8rem; color: #64748b;">Domain: <a href="https://endoflife.tech" target="_blank" style="color: #2563eb; font-weight: 600;">endoflife.tech</a></span>
             </div>
             """,
@@ -363,9 +401,9 @@ if nav_choice == "🔍 Searchable Product Catalog":
     if not is_active_search:
         st.markdown(
             """
-            <div style="background-color: #f0f7ff; color: #1e40af; border: 1px solid #bfdbfe; border-left: 4px solid #3b82f6; padding: 12px 16px; border-radius: 8px; margin: 12px 0 16px 0; font-size: 0.95rem;">
-                💡 <strong>Type a software or OS product name in STEP 1 above to search support dates.</strong><br/>
-                <span style="font-size: 0.83rem; color: #2563eb;">Popular searches: <code>7-Zip</code>, <code>WinZip</code>, <code>Jira</code>, <code>Python</code>, <code>Cisco</code>, <code>Windows Server</code>, <code>RHEL</code>, <code>MongoDB</code></span>
+            <div style="background-color: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; border-left: 4px solid #2563eb; padding: 12px 16px; border-radius: 8px; margin: 12px 0 16px 0; font-size: 0.95rem;">
+                💡 <strong>Type a software or OS product name in the search box above to inspect lifecycle & support dates.</strong><br/>
+                <span style="font-size: 0.83rem; color: #1d4ed8;">Popular searches: <code>7-Zip</code>, <code>WinZip</code>, <code>Jira</code>, <code>Python</code>, <code>Cisco</code>, <code>Windows Server</code>, <code>RHEL</code>, <code>MongoDB</code></span>
             </div>
             """,
             unsafe_allow_html=True
@@ -520,7 +558,7 @@ elif nav_choice == "🛡️ Runtime Environment Risk Dashboard":
 
         st.dataframe(
             renamed_df.style.map(
-                lambda val: 'background-color: #ffcccc; color: #990000; font-weight: bold;' if 'CRITICAL' in str(val) else ('background-color: #fff0c2; color: #664d00;' if 'HIGH' in str(val) else ''),
+                lambda val: 'background-color: #fef2f2; color: #991b1b; font-weight: 600;' if 'CRITICAL' in str(val) else ('background-color: #fffbeb; color: #92400e; font-weight: 600;' if 'HIGH' in str(val) else ''),
                 subset=['Risk Level']
             ),
             use_container_width=True
