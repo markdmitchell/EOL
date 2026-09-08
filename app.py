@@ -143,8 +143,39 @@ st.markdown(
         gap: 8px;
     }
 
+    /* Prominent Bento Hero Search Box */
+    .bento-hero-search {
+        background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+        border: 2px solid #bfdbfe;
+        border-left: 6px solid #2563eb;
+        border-radius: 16px;
+        padding: 20px 24px;
+        margin-bottom: 18px;
+        box-shadow: 0 4px 16px -2px rgba(37, 99, 235, 0.12), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Enhanced Text Input Field Prominence */
+    div[data-testid="stTextInput"] input {
+        font-size: 1.05rem !important;
+        padding: 10px 16px !important;
+        border: 2px solid #94a3b8 !important;
+        border-radius: 10px !important;
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        transition: all 0.2s ease-in-out !important;
+    }
+    div[data-testid="stTextInput"] input:focus {
+        border-color: #2563eb !important;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2) !important;
+    }
+
     /* Input Field Standardized Controls */
-    div[data-testid="stTextInput"] > label,
+    div[data-testid="stTextInput"] > label {
+        font-weight: 700 !important;
+        color: #0f172a !important;
+        font-size: 1.02rem !important;
+        margin-bottom: 4px !important;
+    }
     div[data-testid="stSelectbox"] > label,
     div[data-testid="stNumberInput"] > label,
     div[data-testid="stMultiSelect"] > label {
@@ -166,6 +197,26 @@ st.markdown(
         border-color: #94a3b8 !important;
         background-color: #f8fafc !important;
         color: #2563eb !important;
+    }
+
+    /* Primary Search Button Prominence */
+    div.stButton > button[kind="primary"],
+    div.stButton > button[data-testid="stBaseButton-primary"] {
+        background-color: #2563eb !important;
+        color: #ffffff !important;
+        border: 1px solid #1d4ed8 !important;
+        border-radius: 10px !important;
+        font-size: 1.02rem !important;
+        font-weight: 700 !important;
+        padding: 10px 20px !important;
+        box-shadow: 0 3px 8px rgba(37, 99, 235, 0.3) !important;
+        transition: all 0.15s ease-in-out !important;
+    }
+    div.stButton > button[kind="primary"]:hover,
+    div.stButton > button[data-testid="stBaseButton-primary"]:hover {
+        background-color: #1d4ed8 !important;
+        border-color: #1e40af !important;
+        box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4) !important;
     }
 
     /* Header Badge Container */
@@ -344,12 +395,17 @@ if nav_choice == "🔍 Searchable Product Catalog":
     available_categories = ["All Categories"] + fetch_distinct_categories(db, search_svc)
     available_vendors = ["All Vendors"] + fetch_distinct_vendors(db, search_svc)
 
-    # --- PRIMARY SEARCH INPUT & FILTERS FIRST (NO GAPS ON MOBILE!) ---
-    query_input = st.text_input(
-        "🔍 Search Product Name or Keyword",
-        placeholder="e.g. 7-Zip, WinZip, Jira, OpenText, Python, Cisco, Windows Server, RHEL, MongoDB...",
-        key="catalog_query_input"
-    )
+    # --- PRIMARY PROMINENT SEARCH INPUT & SEARCH BUTTON ---
+    s_col1, s_col2 = st.columns([4, 1])
+    with s_col1:
+        query_input = st.text_input(
+            "🔍 Search Product Name or Keyword",
+            placeholder="e.g. 7-Zip, WinZip, Jira, OpenText, Python, Cisco, Windows Server, RHEL, MongoDB...",
+            key="catalog_query_input"
+        )
+    with s_col2:
+        st.markdown("<div style='height: 32px;'></div>", unsafe_allow_html=True)
+        st.button("🔍 Search Catalog", type="primary", use_container_width=True)
 
     with st.expander("⚙️ Optional Filters (Category, Vendor, EOL Status)", expanded=False):
         f_col1, f_col2, f_col3 = st.columns([2, 2, 2])
