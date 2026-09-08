@@ -14,10 +14,11 @@ from services.sync import SyncService
 st.set_page_config(
     page_title="endoflife.tech | Enterprise Software EOL/EOS Intelligence (v0.9.0-beta)",
     page_icon="🛡️",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
-# --- Bento Box UI Custom CSS Styling ---
+# --- Bento Box UI Custom CSS Styling & Mobile Responsive Adjustments ---
 st.markdown(
     """
     <style>
@@ -97,6 +98,40 @@ st.markdown(
         border-radius: 12px !important;
         padding: 12px 16px !important;
     }
+
+    /* Header Badge Container */
+    .header-badge-container {
+        text-align: right;
+        padding-top: 15px;
+    }
+
+    /* Mobile Viewport Optimizations (<768px) */
+    @media (max-width: 768px) {
+        .header-badge-container {
+            text-align: left !important;
+            padding-top: 4px !important;
+            margin-bottom: 12px !important;
+        }
+        .bento-tile {
+            padding: 10px 12px !important;
+            margin-bottom: 8px !important;
+        }
+        .bento-tile-val {
+            font-size: 1.3rem !important;
+        }
+        .bento-tile-lbl {
+            font-size: 0.75rem !important;
+        }
+        /* Mobile Touch Scrolling for Data Tables */
+        div[data-testid="stDataFrame"] {
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+        }
+        /* Tap Target Comfort */
+        a, button {
+            min-height: 38px;
+        }
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -174,9 +209,12 @@ nav_choice = st.sidebar.radio(
     ]
 )
 
+# Inline SVG LinkedIn Icon constant for reliable mobile rendering without external CDN dependencies
+LINKEDIN_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#0a66c2" style="vertical-align: middle;"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>'
+
 st.sidebar.divider()
 st.sidebar.markdown(
-    """
+    f"""
     <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; margin-top: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
         <div style="font-size: 0.85rem; font-weight: 700; color: #0f172a; margin-bottom: 10px;">
             👤 Authors & Contributors
@@ -184,7 +222,7 @@ st.sidebar.markdown(
         <div style="font-size: 0.84rem; color: #334155;">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                 <a href="https://www.linkedin.com/in/markdmitchell/" target="_blank" title="Mark D. Mitchell on LinkedIn" style="display: inline-flex; align-items: center; text-decoration: none;">
-                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="16" height="16" alt="LinkedIn"/>
+                    {LINKEDIN_SVG}
                 </a>
                 <a href="https://www.linkedin.com/in/markdmitchell/" target="_blank" style="color: #0f172a; text-decoration: none;">
                     <strong>Mark D. Mitchell</strong>
@@ -192,7 +230,7 @@ st.sidebar.markdown(
             </div>
             <div style="display: flex; align-items: center; gap: 8px;">
                 <a href="https://www.linkedin.com/in/jamesshenberger/" target="_blank" title="James Shenberger on LinkedIn" style="display: inline-flex; align-items: center; text-decoration: none;">
-                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="16" height="16" alt="LinkedIn"/>
+                    {LINKEDIN_SVG}
                 </a>
                 <a href="https://www.linkedin.com/in/jamesshenberger/" target="_blank" style="color: #0f172a; text-decoration: none;">
                     <strong>James Shenberger</strong>
@@ -214,7 +252,7 @@ if nav_choice == "🔍 Searchable Product Catalog":
     with col_t2:
         st.markdown(
             """
-            <div style="text-align: right; padding-top: 15px;">
+            <div class="header-badge-container">
                 <span style="background-color: #fef08a; color: #854d0e; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem; font-weight: bold; border: 1px solid #fde047;">⚡ EARLY BETA v0.9.0-beta</span><br/>
                 <span style="font-size: 0.8rem; color: #64748b;">Domain: <a href="https://endoflife.tech" target="_blank" style="color: #2563eb; font-weight: 600;">endoflife.tech</a></span>
             </div>
