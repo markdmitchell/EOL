@@ -17,6 +17,91 @@ st.set_page_config(
     layout="wide"
 )
 
+# --- Bento Box UI Custom CSS Styling ---
+st.markdown(
+    """
+    <style>
+    /* Global Page Styling */
+    .stApp {
+        background-color: #f8fafc;
+    }
+    
+    /* Bento Grid Stat Tile */
+    .bento-tile {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 16px 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        text-align: center;
+        margin-bottom: 12px;
+    }
+    .bento-tile-val {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 2px;
+    }
+    .bento-tile-lbl {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    /* Bento Pill Badges */
+    .pill-badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 9999px;
+        font-size: 0.76rem;
+        font-weight: 600;
+        margin-right: 6px;
+    }
+    .pill-blue {
+        background-color: #eff6ff;
+        color: #1d4ed8;
+        border: 1px solid #bfdbfe;
+    }
+    .pill-green {
+        background-color: #f0fdf4;
+        color: #15803d;
+        border: 1px solid #bbf7d0;
+    }
+    .pill-amber {
+        background-color: #fffbeb;
+        color: #b45309;
+        border: 1px solid #fde68a;
+    }
+    .pill-slate {
+        background-color: #f1f5f9;
+        color: #334155;
+        border: 1px solid #cbd5e1;
+    }
+
+    /* Streamlit Expander Overrides for Bento Cards */
+    div[data-testid="stExpander"] {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 12px !important;
+        margin-bottom: 14px !important;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
+        transition: all 0.15s ease-in-out;
+    }
+    div[data-testid="stExpander"]:hover {
+        border-color: #cbd5e1 !important;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02) !important;
+    }
+    div[data-testid="stExpander"] > summary {
+        border-radius: 12px !important;
+        padding: 12px 16px !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 @st.cache_resource(ttl=3600)
 def get_services(cache_version: str = "v3_tracked_db"):
     db = Database()
@@ -108,6 +193,39 @@ if nav_choice == "🔍 Searchable Product Catalog":
         )
     st.markdown("Search support lifecycles, EOL/EOS dates, and release cycles across **3,000+ software products**, enterprise suites, utilities, OSs, languages, and databases.")
 
+    # --- Bento Box Top Hero Stat Tiles ---
+    b_col1, b_col2, b_col3 = st.columns(3)
+    with b_col1:
+        st.markdown(
+            """
+            <div class="bento-tile">
+                <div class="bento-tile-val">3,054</div>
+                <div class="bento-tile-lbl">📦 Enterprise Products</div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    with b_col2:
+        st.markdown(
+            """
+            <div class="bento-tile">
+                <div class="bento-tile-val">8,841</div>
+                <div class="bento-tile-lbl">📅 Release Cycles Tracked</div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    with b_col3:
+        st.markdown(
+            """
+            <div class="bento-tile">
+                <div class="bento-tile-val">30,300</div>
+                <div class="bento-tile-lbl">🛡️ Verified Provenance Records</div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
     available_categories = ["All Categories"] + fetch_distinct_categories(db, search_svc)
     available_vendors = ["All Vendors"] + fetch_distinct_vendors(db, search_svc)
 
@@ -138,7 +256,6 @@ if nav_choice == "🔍 Searchable Product Catalog":
             """,
             unsafe_allow_html=True
         )
-        st.caption("ℹ️ *Database contains 3,006 products, 8,734 release cycles, and 30,136 provenance records.*")
     else:
         cat_val = "" if category_filter == "All Categories" else category_filter
         ven_val = "" if vendor_filter == "All Vendors" else vendor_filter
@@ -191,10 +308,14 @@ if nav_choice == "🔍 Searchable Product Catalog":
                 cycles = item["release_cycles"]
                 provenance = item["provenance"]
 
-                with st.expander(f"📦 **{product['label']}** ({product['slug']}) — Vendor: `{product.get('vendor') or 'N/A'}` | Category: `{product['category'] or 'N/A'}`", expanded=(total_results == 1)):
+                ven_name = product.get('vendor') or 'N/A'
+                cat_name = product.get('category') or 'N/A'
+                card_title = f"📦 **{product['label']}** ({product['slug']}) — Vendor: `{ven_name}` | Category: `{cat_name}`"
+
+                with st.expander(card_title, expanded=(total_results == 1)):
                     col_a, col_b = st.columns([3, 1])
                     with col_a:
-                        st.write(f"**Vendor:** {product.get('vendor') or 'N/A'}")
+                        st.write(f"**Vendor:** {ven_name}")
                         st.write(f"**Tags:** {', '.join(product['tags']) if product['tags'] else 'N/A'}")
                         if product.get("version_command"):
                             st.code(f"# Version Verification Command\n{product['version_command']}", language="bash")
