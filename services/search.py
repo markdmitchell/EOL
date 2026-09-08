@@ -58,7 +58,44 @@ class SearchService:
                 "provenance": p_prov
             })
 
-        return results
+        return self._deduplicate_results(results)
+
+    def _deduplicate_results(self, results: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """
+        Deduplicates search results where a canonical product is accompanied by
+        a secondary duplicate entry (e.g. bare CPE stubs with 0 cycles).
+        """
+        seen_keys: dict[str, dict[str, Any]] = {}
+        deduped: list[dict[str, Any]] = []
+
+        for item in results:
+            product = item["product"]
+            cycles = item["release_cycles"]
+            slug = product["slug"].lower()
+
+            parts = slug.split("-")
+            base_slug = slug
+            if len(parts) >= 2 and parts[0] == parts[1]:
+                base_slug = parts[0]
+
+            key = base_slug.replace("-", "").replace(" ", "").replace("_", "")
+
+            if key not in seen_keys:
+                seen_keys[key] = item
+                deduped.append(item)
+            else:
+                existing_item = seen_keys[key]
+                existing_cycles = len(existing_item["release_cycles"])
+                current_cycles = len(cycles)
+
+                if current_cycles > existing_cycles or (
+                    current_cycles == existing_cycles and len(slug) < len(existing_item["product"]["slug"])
+                ):
+                    idx = deduped.index(existing_item)
+                    deduped[idx] = item
+                    seen_keys[key] = item
+
+        return deduped
 
     def get_distinct_vendors(self) -> list[str]:
         return self.db.get_distinct_vendors()
