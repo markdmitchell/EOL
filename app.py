@@ -174,6 +174,32 @@ nav_choice = st.sidebar.radio(
     ]
 )
 
+st.sidebar.divider()
+st.sidebar.markdown(
+    """
+    <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; margin-top: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+        <div style="font-size: 0.85rem; font-weight: 700; color: #0f172a; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            👤 <span>Authors & Contributors</span>
+        </div>
+        <div style="font-size: 0.82rem; line-height: 1.6; color: #334155;">
+            <div style="margin-bottom: 8px;">
+                <strong>Mark D. Mitchell</strong><br/>
+                <a href="https://www.linkedin.com/in/markdmitchell/" target="_blank" style="color: #0a66c2; text-decoration: none; font-weight: 600; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="14" height="14"/> LinkedIn Profile
+                </a>
+            </div>
+            <div>
+                <strong>James Shenberger</strong><br/>
+                <a href="https://www.linkedin.com/in/jamesshenberger/" target="_blank" style="color: #0a66c2; text-decoration: none; font-weight: 600; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="14" height="14"/> LinkedIn Profile
+                </a>
+            </div>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 # ==========================================
 # TAB 1: Searchable Product Catalog
 # ==========================================
