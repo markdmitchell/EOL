@@ -181,7 +181,7 @@ VENDOR_EXPANSION_CATALOG: list[dict[str, Any]] = [
         ]
     },
     {
-        "slug": "mongodb-enterprise",
+        "slug": "mongodb",
         "name": "MongoDB Enterprise",
         "label": "MongoDB Enterprise Database Server",
         "category": "database",

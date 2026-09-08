@@ -78,6 +78,10 @@ class SearchService:
             if len(parts) >= 2 and parts[0] == parts[1]:
                 base_slug = parts[0]
 
+            # Strip common variant suffixes for deduplication keying
+            for suffix in ["-enterprise", "-server", "-community", "-edition", "-express"]:
+                base_slug = base_slug.removesuffix(suffix)
+
             key = base_slug.replace("-", "").replace(" ", "").replace("_", "")
 
             if key not in seen_keys:
