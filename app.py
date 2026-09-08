@@ -360,45 +360,45 @@ if nav_choice == "🔍 Searchable Product Catalog":
         with f_col3:
             eol_only = st.checkbox("🔴 Only Show EOL Products/Cycles", value=False)
 
-    # --- Bento Box Stat Tiles (Below Search Controls) ---
-    b_col1, b_col2, b_col3 = st.columns(3)
-    with b_col1:
-        st.markdown(
-            """
-            <div class="bento-tile">
-                <div class="bento-tile-val">3,054</div>
-                <div class="bento-tile-lbl">📦 Enterprise Products</div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-    with b_col2:
-        st.markdown(
-            """
-            <div class="bento-tile">
-                <div class="bento-tile-val">8,841</div>
-                <div class="bento-tile-lbl">📅 Release Cycles Tracked</div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-    with b_col3:
-        st.markdown(
-            """
-            <div class="bento-tile">
-                <div class="bento-tile-val">30,300</div>
-                <div class="bento-tile-lbl">🛡️ Verified Provenance Records</div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
     has_search_term = bool(query_input.strip())
     has_category = category_filter != "All Categories"
     has_vendor = vendor_filter != "All Vendors"
     is_active_search = has_search_term or has_category or has_vendor or eol_only
 
     if not is_active_search:
+        # --- Bento Box Stat Tiles (Shown on initial landing view) ---
+        b_col1, b_col2, b_col3 = st.columns(3)
+        with b_col1:
+            st.markdown(
+                """
+                <div class="bento-tile">
+                    <div class="bento-tile-val">3,054</div>
+                    <div class="bento-tile-lbl">📦 Enterprise Products</div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        with b_col2:
+            st.markdown(
+                """
+                <div class="bento-tile">
+                    <div class="bento-tile-val">8,841</div>
+                    <div class="bento-tile-lbl">📅 Release Cycles Tracked</div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        with b_col3:
+            st.markdown(
+                """
+                <div class="bento-tile">
+                    <div class="bento-tile-val">30,300</div>
+                    <div class="bento-tile-lbl">🛡️ Verified Provenance Records</div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
         st.markdown(
             """
             <div style="background-color: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; border-left: 4px solid #2563eb; padding: 12px 16px; border-radius: 8px; margin: 12px 0 16px 0; font-size: 0.95rem;">
