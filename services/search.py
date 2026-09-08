@@ -58,7 +58,38 @@ class SearchService:
                 "provenance": p_prov
             })
 
-        return self._deduplicate_results(results)
+        deduped = self._deduplicate_results(results)
+        if query:
+            deduped.sort(key=lambda x: self._calculate_relevance_score(x, query), reverse=True)
+        return deduped
+
+    def _calculate_relevance_score(self, item: dict[str, Any], query: str) -> tuple[int, int, str]:
+        q = query.lower().strip()
+        q_norm = q.replace("-", "").replace(" ", "").replace("_", "")
+
+        product = item["product"]
+        cycles_count = len(item["release_cycles"])
+        name = (product.get("name") or "").lower()
+        slug = (product.get("slug") or "").lower()
+        label = (product.get("label") or "").lower()
+        vendor = (product.get("vendor") or "").lower()
+
+        score = 0
+        if cycles_count > 0:
+            score += 100
+
+        if slug == q or name == q or q_norm == slug.replace("-", "").replace("_", ""):
+            score += 500
+        elif slug.startswith(q) or name.startswith(q):
+            score += 300
+        elif q in slug or q in name:
+            score += 200
+        elif q in label:
+            score += 100
+        elif q in vendor:
+            score += 50
+
+        return (score, cycles_count, label)
 
     def _deduplicate_results(self, results: list[dict[str, Any]]) -> list[dict[str, Any]]:
         """

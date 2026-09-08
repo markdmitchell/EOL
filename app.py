@@ -170,41 +170,41 @@ if nav_choice == "🔍 Searchable Product Catalog":
                 cycles = item["release_cycles"]
                 provenance = item["provenance"]
 
-            with st.expander(f"📦 **{product['label']}** ({product['slug']}) — Vendor: `{product.get('vendor') or 'N/A'}` | Category: `{product['category'] or 'N/A'}`", expanded=(total_results == 1)):
-                col_a, col_b = st.columns([3, 1])
-                with col_a:
-                    st.write(f"**Vendor:** {product.get('vendor') or 'N/A'}")
-                    st.write(f"**Tags:** {', '.join(product['tags']) if product['tags'] else 'N/A'}")
-                    if product.get("version_command"):
-                        st.code(f"# Version Verification Command\n{product['version_command']}", language="bash")
-                with col_b:
-                    if provenance:
-                        prov_info = provenance[0]
-                        source_url = prov_info.get("source_url") or prov_info.get("ds_url") or "#"
-                        conf = prov_info.get("ds_confidence") or prov_info.get("confidence_score") or 1.0
-                        st.caption(f"**Source:** [{prov_info['source_name']}]({source_url})")
-                        st.caption(f"**License:** {prov_info.get('license', 'N/A')}")
-                        st.caption(f"**Provenance Score:** {int(conf * 100)}%")
+                with st.expander(f"📦 **{product['label']}** ({product['slug']}) — Vendor: `{product.get('vendor') or 'N/A'}` | Category: `{product['category'] or 'N/A'}`", expanded=(total_results == 1)):
+                    col_a, col_b = st.columns([3, 1])
+                    with col_a:
+                        st.write(f"**Vendor:** {product.get('vendor') or 'N/A'}")
+                        st.write(f"**Tags:** {', '.join(product['tags']) if product['tags'] else 'N/A'}")
+                        if product.get("version_command"):
+                            st.code(f"# Version Verification Command\n{product['version_command']}", language="bash")
+                    with col_b:
+                        if provenance:
+                            prov_info = provenance[0]
+                            source_url = prov_info.get("source_url") or prov_info.get("ds_url") or "#"
+                            conf = prov_info.get("ds_confidence") or prov_info.get("confidence_score") or 1.0
+                            st.caption(f"**Source:** [{prov_info['source_name']}]({source_url})")
+                            st.caption(f"**License:** {prov_info.get('license', 'N/A')}")
+                            st.caption(f"**Provenance Score:** {int(conf * 100)}%")
 
-                st.subheader(f"Release Cycles ({len(cycles)})")
-                if cycles:
-                    df_data = []
-                    for c in cycles:
-                        status = "🔴 End of Life (EOL)" if c["is_eol"] else ("🟢 Supported" if c["is_maintained"] else "🟡 Security Support")
-                        lts_badge = "✅ LTS" if c["is_lts"] else "Standard"
-                        latest_ver = c["latest_version"] or "N/A"
-                        df_data.append({
-                            "Release Cycle": c["cycle"],
-                            "Release Date": c["release_date"] or "N/A",
-                            "End of Active Support": c["eoas_date"] or "N/A",
-                            "End of Life (EOL) Date": c["eol_date"] or "N/A",
-                            "LTS Status": lts_badge,
-                            "Status": status,
-                            "Latest Version": latest_ver
-                        })
-                    st.dataframe(pd.DataFrame(df_data), use_container_width=True)
-                else:
-                    st.write("No release cycles recorded for this product.")
+                    st.subheader(f"Release Cycles ({len(cycles)})")
+                    if cycles:
+                        df_data = []
+                        for c in cycles:
+                            status = "🔴 End of Life (EOL)" if c["is_eol"] else ("🟢 Supported" if c["is_maintained"] else "🟡 Security Support")
+                            lts_badge = "✅ LTS" if c["is_lts"] else "Standard"
+                            latest_ver = c["latest_version"] or "N/A"
+                            df_data.append({
+                                "Release Cycle": c["cycle"],
+                                "Release Date": c["release_date"] or "N/A",
+                                "End of Active Support": c["eoas_date"] or "N/A",
+                                "End of Life (EOL) Date": c["eol_date"] or "N/A",
+                                "LTS Status": lts_badge,
+                                "Status": status,
+                                "Latest Version": latest_ver
+                            })
+                        st.dataframe(pd.DataFrame(df_data), use_container_width=True)
+                    else:
+                        st.write("No release cycles recorded for this product.")
 
 
 # ==========================================

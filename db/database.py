@@ -316,11 +316,11 @@ class Database:
                 q_norm_like = f"%{q_norm}%"
 
                 sql += """ AND (
-                    name LIKE ? OR label LIKE ? OR slug LIKE ? OR vendor LIKE ?
+                    name LIKE ? OR label LIKE ? OR slug LIKE ? OR vendor LIKE ? OR tags LIKE ?
                     OR REPLACE(REPLACE(REPLACE(slug, '-', ''), ' ', ''), '_', '') LIKE ?
                     OR REPLACE(REPLACE(REPLACE(name, '-', ''), ' ', ''), '_', '') LIKE ?
                 )"""
-                params.extend([q_like, q_like, q_like, q_like, q_norm_like, q_norm_like])
+                params.extend([q_like, q_like, q_like, q_like, q_like, q_norm_like, q_norm_like])
 
             if category:
                 sql += " AND category = ?"
