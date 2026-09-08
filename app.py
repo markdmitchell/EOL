@@ -138,23 +138,32 @@ st.markdown(
 
     /* Mobile Viewport Optimizations (<768px) */
     @media (max-width: 768px) {
+        .block-container, div[data-testid="stAppViewBlockContainer"] {
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+        }
+        h1 {
+            font-size: 1.35rem !important;
+            padding-top: 0 !important;
+            margin-top: 0 !important;
+        }
         .header-badge-container {
             text-align: left !important;
-            padding-top: 4px !important;
-            margin-bottom: 12px !important;
-        }
-        .bento-tile {
-            padding: 10px 12px !important;
+            padding-top: 0px !important;
             margin-bottom: 8px !important;
         }
+        .bento-tile {
+            padding: 8px 10px !important;
+            margin-bottom: 6px !important;
+        }
         .bento-tile-val {
-            font-size: 1.3rem !important;
+            font-size: 1.2rem !important;
         }
         .bento-tile-lbl {
-            font-size: 0.75rem !important;
+            font-size: 0.72rem !important;
         }
         .bento-search-card {
-            padding: 14px 16px !important;
+            padding: 12px 14px !important;
         }
         /* Mobile Touch Scrolling for Data Tables */
         div[data-testid="stDataFrame"] {
@@ -282,7 +291,7 @@ st.sidebar.markdown(
 if nav_choice == "🔍 Searchable Product Catalog":
     col_t1, col_t2 = st.columns([3, 1])
     with col_t1:
-        st.title("🔍 Searchable Enterprise Software EOL/EOS Catalog")
+        st.title("Software EOL/EOS Catalog")
     with col_t2:
         st.markdown(
             """
@@ -293,9 +302,27 @@ if nav_choice == "🔍 Searchable Product Catalog":
             """,
             unsafe_allow_html=True
         )
-    st.markdown("Search support lifecycles, EOL/EOS dates, and release cycles across **3,000+ software products**, enterprise suites, utilities, OSs, languages, and databases.")
 
-    # --- Bento Box Top Hero Stat Tiles ---
+    available_categories = ["All Categories"] + fetch_distinct_categories(db, search_svc)
+    available_vendors = ["All Vendors"] + fetch_distinct_vendors(db, search_svc)
+
+    # --- PRIMARY SEARCH INPUT & FILTERS FIRST (NO GAPS ON MOBILE!) ---
+    query_input = st.text_input(
+        "🔍 Search Product Name or Keyword",
+        placeholder="e.g. 7-Zip, WinZip, Jira, OpenText, Python, Cisco, Windows Server, RHEL, MongoDB...",
+        key="catalog_query_input"
+    )
+
+    with st.expander("⚙️ Optional Filters (Category, Vendor, EOL Status)", expanded=False):
+        f_col1, f_col2, f_col3 = st.columns([2, 2, 2])
+        with f_col1:
+            category_filter = st.selectbox("🏷️ Filter by Category", available_categories)
+        with f_col2:
+            vendor_filter = st.selectbox("🏢 Filter by Vendor", available_vendors)
+        with f_col3:
+            eol_only = st.checkbox("🔴 Only Show EOL Products/Cycles", value=False)
+
+    # --- Bento Box Stat Tiles (Below Search Controls) ---
     b_col1, b_col2, b_col3 = st.columns(3)
     with b_col1:
         st.markdown(
@@ -327,27 +354,6 @@ if nav_choice == "🔍 Searchable Product Catalog":
             """,
             unsafe_allow_html=True
         )
-
-    available_categories = ["All Categories"] + fetch_distinct_categories(db, search_svc)
-    available_vendors = ["All Vendors"] + fetch_distinct_vendors(db, search_svc)
-
-    # --- Bento Search & Filter Control Panel ---
-    st.markdown('<div class="bento-search-title">🔍 Search & Catalog Filters</div>', unsafe_allow_html=True)
-    
-    query_input = st.text_input(
-        "STEP 1: Search by Product Name or Keyword",
-        placeholder="e.g. 7-Zip, WinZip, Jira, OpenText, Python, Cisco, Windows Server, RHEL, MongoDB...",
-        key="catalog_query_input"
-    )
-
-    with st.expander("⚙️ STEP 2: Optional Filters (Category, Vendor, EOL Status)", expanded=False):
-        f_col1, f_col2, f_col3 = st.columns([2, 2, 2])
-        with f_col1:
-            category_filter = st.selectbox("🏷️ Filter by Category", available_categories)
-        with f_col2:
-            vendor_filter = st.selectbox("🏢 Filter by Vendor", available_vendors)
-        with f_col3:
-            eol_only = st.checkbox("🔴 Only Show EOL Products/Cycles", value=False)
 
     has_search_term = bool(query_input.strip())
     has_category = category_filter != "All Categories"
