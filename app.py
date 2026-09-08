@@ -182,16 +182,20 @@ st.sidebar.markdown(
             👤 Authors & Contributors
         </div>
         <div style="font-size: 0.84rem; color: #334155;">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                <span><strong>Mark D. Mitchell</strong></span>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                 <a href="https://www.linkedin.com/in/markdmitchell/" target="_blank" title="Mark D. Mitchell on LinkedIn" style="display: inline-flex; align-items: center; text-decoration: none;">
-                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="18" height="18" alt="LinkedIn"/>
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="16" height="16" alt="LinkedIn"/>
+                </a>
+                <a href="https://www.linkedin.com/in/markdmitchell/" target="_blank" style="color: #0f172a; text-decoration: none;">
+                    <strong>Mark D. Mitchell</strong>
                 </a>
             </div>
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-                <span><strong>James Shenberger</strong></span>
+            <div style="display: flex; align-items: center; gap: 8px;">
                 <a href="https://www.linkedin.com/in/jamesshenberger/" target="_blank" title="James Shenberger on LinkedIn" style="display: inline-flex; align-items: center; text-decoration: none;">
-                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="18" height="18" alt="LinkedIn"/>
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="16" height="16" alt="LinkedIn"/>
+                </a>
+                <a href="https://www.linkedin.com/in/jamesshenberger/" target="_blank" style="color: #0f172a; text-decoration: none;">
+                    <strong>James Shenberger</strong>
                 </a>
             </div>
         </div>
