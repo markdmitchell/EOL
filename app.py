@@ -99,6 +99,37 @@ st.markdown(
         padding: 12px 16px !important;
     }
 
+    /* Bento Search Panel Card */
+    .bento-search-card {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 14px;
+        padding: 18px 22px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+    }
+    .bento-search-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* Input Field Mobile Enhancements */
+    div[data-testid="stTextInput"] > label {
+        font-weight: 700 !important;
+        color: #1e293b !important;
+        font-size: 0.95rem !important;
+    }
+    div[data-testid="stSelectbox"] > label {
+        font-weight: 600 !important;
+        color: #334155 !important;
+        font-size: 0.88rem !important;
+    }
+
     /* Header Badge Container */
     .header-badge-container {
         text-align: right;
@@ -121,6 +152,9 @@ st.markdown(
         }
         .bento-tile-lbl {
             font-size: 0.75rem !important;
+        }
+        .bento-search-card {
+            padding: 14px 16px !important;
         }
         /* Mobile Touch Scrolling for Data Tables */
         div[data-testid="stDataFrame"] {
@@ -297,18 +331,23 @@ if nav_choice == "🔍 Searchable Product Catalog":
     available_categories = ["All Categories"] + fetch_distinct_categories(db, search_svc)
     available_vendors = ["All Vendors"] + fetch_distinct_vendors(db, search_svc)
 
-    col1, col2, col3, col4 = st.columns([3, 1.5, 1.5, 1.5])
-    with col1:
-        query_input = st.text_input(
-            "Search Product (e.g. 7-Zip, WinRAR, Jira, OpenText, Python, Cisco, Windows)",
-            key="catalog_query_input"
-        )
-    with col2:
-        category_filter = st.selectbox("Category Filter", available_categories)
-    with col3:
-        vendor_filter = st.selectbox("Vendor Filter", available_vendors)
-    with col4:
-        eol_only = st.checkbox("Only Show EOL Products/Cycles", value=False)
+    # --- Bento Search & Filter Control Panel ---
+    st.markdown('<div class="bento-search-title">🔍 Search & Catalog Filters</div>', unsafe_allow_html=True)
+    
+    query_input = st.text_input(
+        "STEP 1: Search by Product Name or Keyword",
+        placeholder="e.g. 7-Zip, WinZip, Jira, OpenText, Python, Cisco, Windows Server, RHEL, MongoDB...",
+        key="catalog_query_input"
+    )
+
+    with st.expander("⚙️ STEP 2: Optional Filters (Category, Vendor, EOL Status)", expanded=False):
+        f_col1, f_col2, f_col3 = st.columns([2, 2, 2])
+        with f_col1:
+            category_filter = st.selectbox("🏷️ Filter by Category", available_categories)
+        with f_col2:
+            vendor_filter = st.selectbox("🏢 Filter by Vendor", available_vendors)
+        with f_col3:
+            eol_only = st.checkbox("🔴 Only Show EOL Products/Cycles", value=False)
 
     has_search_term = bool(query_input.strip())
     has_category = category_filter != "All Categories"
@@ -318,8 +357,9 @@ if nav_choice == "🔍 Searchable Product Catalog":
     if not is_active_search:
         st.markdown(
             """
-            <div style="display: inline-block; width: fit-content; background-color: #f0f7ff; color: #1e40af; border: 1px solid #bfdbfe; border-left: 4px solid #3b82f6; padding: 10px 16px; border-radius: 6px; margin: 8px 0 12px 0; font-size: 0.95rem;">
-                💡 <strong>Type a software or OS product name above to search EOL/EOS dates.</strong>
+            <div style="background-color: #f0f7ff; color: #1e40af; border: 1px solid #bfdbfe; border-left: 4px solid #3b82f6; padding: 12px 16px; border-radius: 8px; margin: 12px 0 16px 0; font-size: 0.95rem;">
+                💡 <strong>Type a software or OS product name in STEP 1 above to search support dates.</strong><br/>
+                <span style="font-size: 0.83rem; color: #2563eb;">Popular searches: <code>7-Zip</code>, <code>WinZip</code>, <code>Jira</code>, <code>Python</code>, <code>Cisco</code>, <code>Windows Server</code>, <code>RHEL</code>, <code>MongoDB</code></span>
             </div>
             """,
             unsafe_allow_html=True
