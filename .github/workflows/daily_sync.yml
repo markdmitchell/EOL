@@ -21,6 +21,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: true
+          fetch-depth: 0
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
@@ -36,6 +37,9 @@ jobs:
       - name: Execute Full Multi-Source EOL Database Scrape
         run: |
           python scrape_all_sources.py
+
+      - name: Pull Latest Changes
+        run: git pull origin master --rebase
 
       - name: Commit and Push Updated SQLite Database
         uses: stefanzweifel/git-auto-commit-action@v5
