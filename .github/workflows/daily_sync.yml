@@ -46,3 +46,4 @@ jobs:
         with:
           commit_message: "Auto-sync: Daily software EOL data refresh across 25 sources"
           file_pattern: 'db/*.db'
+          push_options: '--force-with-lease'
