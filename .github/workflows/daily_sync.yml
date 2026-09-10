@@ -38,12 +38,15 @@ jobs:
         run: |
           python scrape_all_sources.py
 
-      - name: Pull Latest Changes
-        run: git pull origin master --rebase
-
       - name: Commit and Push Updated SQLite Database
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Auto-sync: Daily software EOL data refresh across 25 sources"
-          file_pattern: 'db/*.db'
-          push_options: '--force-with-lease'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet db/*.db; then
+            echo "No database changes detected to commit."
+          else
+            git add db/*.db
+            git commit -m "Auto-sync: Daily software EOL data refresh across 25 sources"
+            git pull --rebase origin master
+            git push origin master
+          fi
